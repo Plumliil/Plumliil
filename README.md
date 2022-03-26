@@ -14,5 +14,8 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-![](niuniu.png)
-<video src="久石让-太阳照常升起（原声带）.flv" controls="controls" width="500" height="300">您的浏览器不支持播放该视频！</video>
+<!-- ![](niuniu.png)
+<video src="久石让-太阳照常升起（原声带）.flv" controls="controls" width="500" height="300">您的浏览器不支持播放该视频！</video> -->
+<div align="center">
+    <img  src="https://github-readme-streak-stats.herokuapp.com/?user=Achuan-2" />
+</div>
