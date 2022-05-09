@@ -1,7 +1,7 @@
 
 <div align="center">
 <span>  </span>
-<img height="170px" src="https://github-readme-stats.vercel.app/api?username=Plumliil&theme=dark " /><span>  </span><img height="170px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Plumliil&layout=compact&langs_count=8&theme=dark " />
+<img height="170px" src="https://github-readme-stats.vercel.app/api?username=Plumliil&theme= " /><span>  </span><img height="170px" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Plumliil&layout=compact&langs_count=8&theme= " />
 <span>  </span>
 </div>
 
