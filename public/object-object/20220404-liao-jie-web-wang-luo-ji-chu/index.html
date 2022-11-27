@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>了解web网络基础</title>
+<meta name="keywords" content="TCP/IP,DNS,HTTP,计算机网络,网络基础">
+<meta name="description" content="TCP/IP协议:一种规则,规定不同计算机操作系统,硬件之间怎么通信的一种规则
+像这样把互联网相关联的协议集合起来总称为TCP/IP协议.
+TCP/IP分层管理按照组层次分为以下四层:
+
+应用层:决定了向用户提供应用服务时通信的活动
+
+tc">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">了解web网络基础</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-04-04</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+              计算机网络
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+              读书笔记
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h4 id="TCP-IP"><a href="#TCP-IP" class="headerlink" title="TCP/IP"></a>TCP/IP</h4><p>协议:一种规则,规定不同计算机操作系统,硬件之间怎么通信的一种规则</p>
+<p>像这样把互联网相关联的协议集合起来总称为TCP/IP协议.</p>
+<h5 id="TCP-IP分层管理"><a href="#TCP-IP分层管理" class="headerlink" title="TCP/IP分层管理"></a>TCP/IP分层管理</h5><p>按照组层次分为以下四层:</p>
+<ul>
+<li><p>应用层:决定了向用户提供应用服务时通信的活动</p>
+<ul>
+<li>tcp/ip协议族内预存了各类通用应用服务比如FTP和DNS等</li>
+</ul>
+</li>
+<li><p>传输层:对上层应用层,提供处于网络连接中两台计算机之间的数据传输.</p>
+<ul>
+<li>在传输层有两个性质不同的协议:TCP和UDP</li>
+</ul>
+</li>
+<li><p>网络层:又名网络互联层有,用来处理网络上流动的数据包</p>
+<ul>
+<li>数据包使网络传输的最小数据单位.该层规定了通过怎样的路径(传输路线到达对方计算机),并把数据包传给对方.</li>
+<li>与对方计算机之间通过多台计算机或者网络设备进行传输时,网络层所起的作用就是在众多的选项内选择一条传输路线</li>
+</ul>
+</li>
+<li><p>数据链路层:又称链路层,数据接口层,用来处理链接玩罗德硬件部分,包括操作系统,赢家的驱动,NIC,及光纤等物理可见部分.硬件范畴均在链路层作用范围内.</p>
+</li>
+</ul>
+<p>分层好处:使设计更加简单,给每个层分配不同的任务</p>
+<h5 id="通信传输流"><a href="#通信传输流" class="headerlink" title="通信传输流"></a>通信传输流</h5><p>​    客户端 &lt;—&gt;  应用层(HTTP客户端)① &lt;—&gt; 传输层(TCP)② &lt;—&gt; 网络层(IP)③ &lt;—&gt; 链路层(网络)④ &lt;—&gt; 链路层(网络)④ &lt;—&gt; 网络层(IP) &lt;—&gt; 传输层(TCP) &lt;—&gt;  应用层(HTTP服务器端) &lt;—&gt; 服务端</p>
+<ul>
+<li><p>①:http协议发送请求</p>
+</li>
+<li><p>②:tcp协议对在应用层收到的数据(http请求报文)进行分割,并在各个报文上打上标记序号及端口号 发送给网络层</p>
+</li>
+<li><p>③:增加作为通信目的地的MAC地址后转发给链路层</p>
+</li>
+<li><p>④:接受端的服务器在链路层收到服务端发送的数据,按顺序往上发送一直到应用层,才算真正接收端由客户端发送过来的http请求</p>
+</li>
+</ul>
+<p>​    在http数据从应用层发出后,之后的每一层都会对其进行封装,在传输层进行TCP首部的封装,在网络层进行IP首部的封装,在数据链路层进行以太网首部封装,在服务端的数据链路层接收到数据后会将这些封装一一消去.</p>
+<h4 id="IP-TCP和DNS"><a href="#IP-TCP和DNS" class="headerlink" title="IP,TCP和DNS"></a>IP,TCP和DNS</h4><p>   IP网际协议位于网络层,作用是通过ip地址和mac地址将各种数据包传给对方,其中ip地址指明了节点被分配到的地址,mac地址是指网卡所属的固定地址,ip地址可以和mac地址进行配对,ip地址可换但是mac地址基本上不会更改.</p>
+<p>​    TCP:tcp协议位于传输层,提供可靠的字节流服务(所谓字节流服务是为了方便传输,将大数据块分割成以报文段为单位的数据包进行管理,将报文段传递给对方),为了将数据准确无误的送达,TCP协议采用了三次握手策略(发送端将标有SYN的数据包发送给服务端,服务端接收到数据包后发送标有SYN/ACK的数据包给发送端,发送端接收到数据包后发送带有SYN的数据包.SYN-synchronize,ACK-acknowledgement)</p>
+<p>​    DNS服务是和HTTP协议一样位于应用层,提供域名到ip地址之间的解析.使由数字组成的ip地址可以用有含义的字母单词来表示,而DNS做的就是将这些容易理解的字母单词解析为ip地址</p>
+<h5 id="各协议与HTTP协议之间关系"><a href="#各协议与HTTP协议之间关系" class="headerlink" title="各协议与HTTP协议之间关系"></a>各协议与HTTP协议之间关系</h5><p>以访问https:<a target="_blank" rel="noopener" href="http://www.plumli.xyz/%E4%B8%BA%E4%BE%8B">www.plumli.xyz/为例</a>:</p>
+<p>​    客户端通过DNS解析获得https:<a target="_blank" rel="noopener" href="http://www.plumli.xyz/%E6%89%80%E5%AF%B9%E5%BA%94%E7%9A%84IP%E5%9C%B0%E5%9D%80---&gt;HTTP%E5%8D%8F%E8%AE%AE%E7%94%9F%E6%88%90%E9%92%88%E5%AF%B9%E7%9B%AE%E6%A0%87web%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84HTTP%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87---&gt;TCP%E4%B8%BA%E4%BA%86%E6%96%B9%E4%BE%BF%E9%80%9A%E4%BF%A1%E5%B0%86%E6%8A%A5%E6%96%87%E5%88%86%E5%89%B2%E6%88%90%E6%8A%A5%E6%96%87%E6%AE%B5,%E6%8A%8A%E6%AF%8F%E4%B8%AA%E6%8A%A5%E6%96%87%E6%AE%B5%E5%8F%AF%E9%9D%A0%E7%9A%84%E4%BC%A0%E8%BE%93%E7%BB%99%E5%AF%B9%E6%96%B9---&gt;%E6%A0%B9%E6%8D%AEip%E5%9C%B0%E5%9D%80%E5%9C%A8%E8%B7%AF%E7%94%B1%E5%99%A8%E4%B8%AD%E8%BF%9B%E8%A1%8C%E4%B8%AD%E8%BD%AC---&gt;%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A5%E6%94%B6%E5%88%B0%E6%8A%A5%E6%96%87%E6%AE%B5,%E6%A0%B9%E6%8D%AETCP%E5%8D%8F%E8%AE%AE%E5%AF%B9%E6%8A%A5%E6%96%87%E6%AE%B5%E8%BF%9B%E8%A1%8C%E9%87%8D%E7%BB%84,%E5%B9%B6%E5%AF%B9%E8%AF%B7%E6%B1%82%E5%86%85%E5%AE%B9%E8%BF%9B%E8%A1%8C%E5%A4%84%E7%90%86---&gt;%E6%9C%80%E5%90%8E%E5%B0%86%E5%A4%84%E7%90%86%E8%BF%87%E7%9A%84%E5%86%85%E5%AE%B9%E9%80%9A%E8%BF%87TCP/IP%E5%8D%8F%E8%AE%AE%E5%90%91%E7%94%A8%E6%88%B7%E8%BF%9B%E8%A1%8C%E5%9B%9E%E8%BD%AC">www.plumli.xyz/所对应的IP地址---&gt;HTTP协议生成针对目标web服务器的HTTP请求报文---&gt;TCP为了方便通信将报文分割成报文段,把每个报文段可靠的传输给对方---&gt;根据ip地址在路由器中进行中转---&gt;客户端接收到报文段,根据TCP协议对报文段进行重组,并对请求内容进行处理---&gt;最后将处理过的内容通过TCP/IP协议向用户进行回转</a>.</p>
+<h4 id="URI和URL"><a href="#URI和URL" class="headerlink" title="URI和URL"></a>URI和URL</h4><p>URI:统一资源标识符,用字符串标识某一互联网资源</p>
+<p>URI格式:<code>http://user:pass@www.example.com:80/dir/index.html?uid=1#ch1</code></p>
+<ul>
+<li><p>http:协议方案名</p>
+</li>
+<li><p>user:pass登录信息认证(可选)</p>
+</li>
+<li><p><a href="http://www.example.com:服务器地址">www.example.com:服务器地址</a></p>
+</li>
+<li><p>80:服务器端口</p>
+</li>
+<li><p>dir/index.html:文件路径</p>
+</li>
+<li><p>uid=1查询字符串</p>
+</li>
+<li><p>ch1片段标识符</p>
+</li>
+</ul>
+<p>URL:统一资源定位符,表示资源在互联网上所处的位置</p>
+<p><strong>读《图解HTTP》笔记记录</strong></p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20220331-jin-qi-uniapp-shi-yong-ji-zong-jie/">
+          <h3 class="post-title">
+            下一篇：近期uniapp使用及总结
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>在vue中使用自定义指令</title>
+<meta name="keywords" content="vue,自定义指令,directive,directives">
+<meta name="description" content="自定义指令类似于vue中的v-if,v-show,我们也可以自己注册自定义指令,使用directive或者directives注册的指令为自定义指令,自定义指令分为两种,分别是全局自定义指令和局部自定义指令.通过自定义指令我们可以对dom进">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">在vue中使用自定义指令</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-04-30</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Vue/">
+              Vue
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h4 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h4><p>类似于vue中的v-if,v-show,我们也可以自己注册自定义指令,使用directive或者directives注册的指令为自定义指令,自定义指令分为两种,分别是全局自定义指令和局部自定义指令.通过自定义指令我们可以对dom进行底层操作.</p>
+<h4 id="自定义指令参数介绍"><a href="#自定义指令参数介绍" class="headerlink" title="自定义指令参数介绍"></a>自定义指令参数介绍</h4><h5 id="钩子函数介绍"><a href="#钩子函数介绍" class="headerlink" title="钩子函数介绍"></a>钩子函数介绍</h5><p><strong>bind</strong></p>
+<blockquote>
+<p>只调用一次,指令第一次绑定到元素时调用,在这里可进行一次性的初始化设置</p>
+</blockquote>
+<p><strong>inserted</strong></p>
+<blockquote>
+<p>被绑定元素插入父节点调用(保证父节点存在,但不一定被插入到文档中)</p>
+</blockquote>
+<p> <strong>update</strong></p>
+<blockquote>
+<p>所有组件的VNode更新时调用,但是可能发生在其子VNode更新之前.指令的值可能发生改变,也可能没有</p>
+</blockquote>
+<p><strong>componentUpdated</strong></p>
+<blockquote>
+<p>指令所在组件的VNode及其子VNode全部更新后调用.</p>
+</blockquote>
+<p><strong>unbind</strong></p>
+<blockquote>
+<p>只调用一次,指令与元素解绑时调用</p>
+</blockquote>
+<h5 id="钩子函数参数"><a href="#钩子函数参数" class="headerlink" title="钩子函数参数"></a>钩子函数参数</h5><ul>
+<li>el:指令绑定到的元素。这可用于直接操作 DOM</li>
+</ul>
+<ul>
+<li>bindings:<ul>
+<li>instance：使用指令的组件实例。</li>
+<li>value：传递给指令的值。例如，在 v-my-directive=”1 + 1” 中，该值为 2。</li>
+<li>oldValue：先前的值，仅在 beforeUpdate 和 updated 中可用。无论值是否有更改都可用。</li>
+<li>arg：传递给指令的参数(如果有的话)。例如在 v-my-directive:foo 中，arg 为 “foo”。</li>
+<li>modifiers：包含修饰符(如果有的话) 的对象。例如在 v-my-directive.foo.bar 中，修饰符对象为 {foo: true，bar: true}。</li>
+<li>dir：一个对象，在注册指令时作为参数传递。例如，在以下指令中</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>vnode:一个真实 DOM 元素的蓝图，对应上面收到的 el 参数</p>
+</li>
+<li><p>prvenode:上一个虚拟节点，仅在 beforeUpdate 和 updated 钩子中可用。</p>
+</li>
+</ul>
+<p>注意:除了 el 之外，你应该将这些参数视为只读，并且永远不要修改它们。如果你需要跨钩子共享信息，建议通过元素的自定义数据属性集进行共享。</p>
+<h4 id="自定义指令分类"><a href="#自定义指令分类" class="headerlink" title="自定义指令分类"></a>自定义指令分类</h4><h5 id="全局指令"><a href="#全局指令" class="headerlink" title="全局指令"></a>全局指令</h5><p>全局指令只能使用directive单个创建</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// main.js</span>
+<span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span>
+  <span class="token comment">// 钩子函数 </span>
+  <span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">inserted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">updated</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">componentUpdated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token function">unbind</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="局部指令"><a href="#局部指令" class="headerlink" title="局部指令"></a>局部指令</h5><p>局部指令使用directives来定义,directives在script内和data,methdos同级,内部可定义多个指令</p>
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;script&gt;
+    data()&#123;return&#123;&#125;&#125;,
+    methods:&#123;&#125;,
+    directives:&#123;
+    	directiveName1:&#123;
+        	&#x2F;&#x2F; 钩子函数
+    	&#125;,
+    	directiveName2:&#123;
+        	&#x2F;&#x2F; 钩子函数
+    	&#125;,
+   		directiveName3:&#123;
+        	&#x2F;&#x2F; 钩子函数
+    	&#125;,	
+	&#125;
+&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>下方代码使用directives定义了一个resize指令,作用是在浏览器窗口更改时,更改div的大小</p>
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+   &lt;div v-resize&gt;
+      &lt;h2&gt;窗口宽度:&#123;&#123;innerWidth&#125;&#125;&lt;&#x2F;h2&gt;
+      &lt;h2&gt;窗口高度:&#123;&#123;innerHeight&#125;&#125;&lt;&#x2F;h2&gt;
+   &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+export default &#123;
+  name: &quot;App&quot;,
+  data() &#123;
+    return &#123;
+      innerWidth:window.innerWidth,
+      innerHeight:window.innerHeight,
+    &#125;
+  &#125;,
+  directives: &#123;
+    resize:&#123;
+      bind()&#123;
+        console.log(&#39;bind&#39;);
+      &#125;,
+      inserted(el,binding,vnode)&#123;
+        console.log(&#39;inserted&#39;);
+        const sizeChange&#x3D;function ()&#123;
+          this.innerWidth&#x3D;window.innerWidth;
+          this.innerHeight&#x3D;window.innerHeight;
+          el.style.width&#x3D;this.innerWidth*0.7+&#39;px&#39;;
+        &#125;
+        window.addEventListener(&#39;resize&#39;,sizeChange.bind(vnode.context))
+      &#125;,
+      updated() &#123;
+        console.log(&#39;updated&#39;);
+      &#125;,
+      componentUpdated()&#123;
+        console.log(&#39;compontentUpdated&#39;);
+      &#125;,
+      unbind()&#123;
+        console.log(&#39;unbind&#39;);
+      &#125;
+    &#125;
+  &#125;,
+&#125;;
+&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="自定义指令简写"><a href="#自定义指令简写" class="headerlink" title="自定义指令简写"></a>自定义指令简写</h4><p><code>Vue.directive(&#39;example&#39;, function(el, binding)&#123;&#125;)</code></p>
+<p>这里的 function 等同于将代码写在了 bind 和 update 钩子函数中。</p>
+<h4 id="自定义指令示例"><a href="#自定义指令示例" class="headerlink" title="自定义指令示例"></a>自定义指令示例</h4><p>复制指令,点击元素节点复制内容</p>
+<p><img src="https://s2.loli.net/2022/04/30/AxBaLyslURTzQMo.png" alt="1651325399117.png"></p>
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+  &lt;p v-copy&gt;
+    Vue (读音 &#x2F;vjuː&#x2F;，类似于 view) 是一套用于构建用户界面的渐进式框架。
+    与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。 Vue
+    的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。
+    另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue
+    也完全能够为复杂的单页应用提供驱动。
+  &lt;&#x2F;p&gt;
+&lt;&#x2F;template&gt;
+&lt;script&gt;
+export default &#123;
+  directives: &#123;
+    copy: function (el) &#123;
+      el.addEventListener(&quot;click&quot;, () &#x3D;&gt; &#123;
+        let textareaCopy &#x3D; document.createElement(&quot;textarea&quot;);
+        textareaCopy.setAttribute(&quot;readonly&quot;, &quot;readonly&quot;);
+        textareaCopy.style.opacity &#x3D; 0;
+        textareaCopy.value &#x3D; el.innerText;
+        document.body.appendChild(textareaCopy);
+        textareaCopy.select();
+        let copyText &#x3D; document.execCommand(&quot;copy&quot;);
+        document.body.removeChild(textareaCopy);
+        console.log(&quot;复制成功&quot;);
+        return copyText;
+      &#125;);
+    &#125;,
+  &#125;,
+&#125;;
+&lt;&#x2F;script&gt;
+
+&lt;style&gt;
+p &#123;
+  width: 400px;
+  text-indent: 32px;
+  text-align: left;
+  border: 1px solid #f0f0f0;
+  padding: 3px;
+  cursor: pointer;
+&#125;
+&lt;&#x2F;style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>实现简单弹窗指令</p>
+<p><img src="https://s2.loli.net/2022/04/30/Yw4yJOsRSzTg57G.png"></p>
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+  &lt;div&gt;
+    &lt;span class&#x3D;&quot;tip&quot; v-tip:[tipSite1]&#x3D;&quot;tipValue1&quot;&gt;tip&lt;&#x2F;span&gt;
+    &lt;span class&#x3D;&quot;tip&quot; v-tip:[tipSite2]&#x3D;&quot;tipValue2&quot;&gt;tip&lt;&#x2F;span&gt;
+    &lt;span class&#x3D;&quot;tip&quot; v-tip:[tipSite3]&#x3D;&quot;tipValue3&quot;&gt;tip&lt;&#x2F;span&gt;
+    &lt;span class&#x3D;&quot;tip&quot; v-tip:[tipSite4]&#x3D;&quot;tipValue4&quot;&gt;tip&lt;&#x2F;span&gt;
+  &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+export default &#123;
+  data() &#123;
+    return &#123;
+      tipSite1: &quot;top&quot;,
+      tipValue1: &quot;上方提示&quot;,
+      tipSite2: &quot;bottom&quot;,
+      tipValue2: &quot;下方提示&quot;,
+      tipSite3: &quot;left&quot;,
+      tipValue3: &quot;左侧提示&quot;,
+      tipSite4: &quot;right&quot;,
+      tipValue4: &quot;右侧提示&quot;,
+    &#125;;
+  &#125;,
+  directives: &#123;
+    tip: function (el, binding) &#123;
+      console.log(binding);
+      const createTip &#x3D; () &#x3D;&gt; &#123;
+        let tipWindow &#x3D; document.createElement(&quot;p&quot;);
+        tipWindow.className &#x3D; &quot;tipWindow&quot;;
+        switch (binding.arg) &#123;
+          case &quot;top&quot;:
+            tipWindow.style.top &#x3D; &quot;-85%&quot;;
+            tipWindow.style.left &#x3D; &quot;18%&quot;;
+            break;
+          case &quot;bottom&quot;:
+            tipWindow.style.top &#x3D; &quot;110%&quot;;
+            tipWindow.style.left &#x3D; &quot;18%&quot;;
+            break;
+          case &quot;left&quot;:
+            tipWindow.style.top &#x3D; &quot;12%&quot;;
+            tipWindow.style.left &#x3D; &quot;-72%&quot;;
+            break;
+          case &quot;right&quot;:
+            tipWindow.style.top &#x3D; &quot;12%&quot;;
+            tipWindow.style.left &#x3D; &quot;103%&quot;;
+            break;
+          default:
+            tipWindow.style.top &#x3D; &quot;-90%&quot;;
+            tipWindow.style.left &#x3D; &quot;18%&quot;;
+            break;
+        &#125;
+        tipWindow.innerText &#x3D; binding.value;
+        el.appendChild(tipWindow);
+        setTimeout(() &#x3D;&gt; &#123;
+          el.removeChild(tipWindow);
+        &#125;, 3000);
+      &#125;;
+      el.addEventListener(&quot;click&quot;, createTip);
+    &#125;,
+  &#125;,
+&#125;;
+&lt;&#x2F;script&gt;
+
+&lt;style&gt;
+div &#123;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+&#125;
+.tip &#123;
+  position: relative;
+  background-color: cornflowerblue;
+  border-radius: 10px;
+  width: 100px;
+  height: 30px;
+  padding: 3px;
+  text-align: center;
+  line-height: 30px;
+  color: aliceblue;
+  cursor: pointer;
+  margin: 30px 0;
+&#125;
+.tipWindow &#123;
+  position: absolute;
+  width: 70px;
+  height: 25px;
+  background-color: blanchedalmond;
+  display: block;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-indent: 0;
+  font-size: 8px;
+  color: black;
+  line-height: 25px;
+&#125;
+&lt;&#x2F;style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20220423-js-zhong-ji-chong-xun-huan-de-shi-yong/">
+          <h3 class="post-title">
+            下一篇：Js中几种循环的使用
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

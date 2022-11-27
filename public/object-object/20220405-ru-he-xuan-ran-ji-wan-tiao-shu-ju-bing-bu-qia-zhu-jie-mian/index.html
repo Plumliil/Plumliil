@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>如何渲染几万条数据并不卡住界面</title>
+<meta name="keywords" content="javascript,html,createDocumentFragment,requestAnimationFrame,渲染,渲染数据">
+<meta name="description" content="渲染几万条数据不卡就不能将数据一次性的渲染出来,而是需要分段渲染,一次渲染20条,30条,50条等,来分多次渲染.先把代码贴出来然后再一一解释:
+&lt;ol>&lt;/ol>
+
+setTimeout(()=>&#123;
+   // Ⅰ定">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">如何渲染几万条数据并不卡住界面</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-04-05</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/JavaScript/">
+              JavaScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>渲染几万条数据不卡就不能将数据一次性的渲染出来,而是需要分段渲染,一次渲染20条,30条,50条等,来分多次渲染.<br>先把代码贴出来然后再一一解释:</p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>ol</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>ol</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+   <span class="token comment">// Ⅰ定义变量</span>
+   <span class="token keyword">let</span> totalData <span class="token operator">=</span> <span class="token number">10000</span><span class="token punctuation">;</span>
+   <span class="token keyword">let</span> once <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span>
+   <span class="token keyword">let</span> renderCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token keyword">let</span> loopCount <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">ceil</span><span class="token punctuation">(</span>totalData <span class="token operator">/</span> once<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">let</span> ol <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'ol'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token comment">// Ⅱ渲染</span>
+   <span class="token keyword">function</span> <span class="token function">renderData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+       <span class="token keyword">let</span> fragment <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createDocumentFragment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>once<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+           <span class="token keyword">let</span> li <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+       	   li<span class="token punctuation">.</span>innerHTML<span class="token operator">=</span>Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">*</span>totalData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       	   fragment<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>li<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token punctuation">&#125;</span>
+       ol<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>fragment<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       renderCount<span class="token operator">+=</span><span class="token number">1</span><span class="token punctuation">;</span>
+       <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">&#125;</span>
+   <span class="token comment">// Ⅲ循环</span>
+   <span class="token keyword">function</span> <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+       <span class="token keyword">if</span><span class="token punctuation">(</span>loopCount<span class="token operator">&lt;</span>renderCount<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+           window<span class="token punctuation">.</span><span class="token function">requestAnimationFrame</span><span class="token punctuation">(</span>renderData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+       <span class="token punctuation">&#125;</span>
+   <span class="token punctuation">&#125;</span>
+   <span class="token comment">// Ⅳ开始渲染</span>
+   <span class="token function">loop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>​    这一串代码由<code>setTimeout()</code>函数包裹,<code>setTimeout</code>是一个计时器,在此函数内的代码是宏任务,需要在主线任务和微任务(不是宏任务所含微任务)执行完后再执行,这在一定程度上提高了友好度,不需要等待数据渲染完之后才继续渲染后续的界面,而<code>setTimeout</code>延时时间设置为0就是为了让主页面渲染完后第一个渲染数据.</p>
+<h5 id="Ⅰ定义变量"><a href="#Ⅰ定义变量" class="headerlink" title="Ⅰ定义变量"></a>Ⅰ定义变量</h5><p>​    在这部分内对变量进行一些定义,在此需要获取到待渲染数据的总数,一次性渲染数据条数,需要渲染的次数以及循环次数,当然还有少不了的Dom节点,这些数据可以根据自己需要进行更改.</p>
+<h5 id="Ⅱ渲染"><a href="#Ⅱ渲染" class="headerlink" title="Ⅱ渲染"></a>Ⅱ渲染</h5><p>​    在渲染这部分中定义了一个渲染函数,在此渲染函数内使用<code>createDocumentFragment() </code>方法创建了一个虚拟的节点对象<code>fragment</code>,将渲染的<code>li</code>节点加入到<code>fragment</code>这个虚拟的节点对象中,在我看来,这个虚拟对象可以看作一个容器,我们可以把需要渲染的部分数据先放到容器中,然后在将这个容器放入到对应的父节点中,在该例子中父节点是<code>ol</code>,这样做的好处是防止每一次<code>li</code>生成后就立即插入到<code>ol</code>中,使浏览器进行重绘,而在数据较多的情况下浏览器的页面的重绘会大大的损耗浏览器的性能.而先将<code>li</code>放入<code>fragment</code>这个虚拟节点再将<code>fragment</code>放入<code>ol</code>可以减少20倍(在本例子中是20倍)的重绘次数,提高执行效率;</p>
+<p>​    同时,在渲染函数内也调用了一下循环函数来判断是否结束渲染.</p>
+<h5 id="Ⅲ循环"><a href="#Ⅲ循环" class="headerlink" title="Ⅲ循环"></a>Ⅲ循环</h5><p>​    在循环这部分同样定义了一个函数来进行循环判断操作,当<code>renderCount</code>的次数大于<code>loopCount</code>时停止渲染,</p>
+<p><code> window.requestAnimationFrame()</code> 要求浏览器在下次重绘之前调用指定的回调函数更新动画,具体用法可去往<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestAnimationFrame">window.requestAnimationFrame - Web API 接口参考 | MDN (mozilla.org)</a></p>
+<h5 id="Ⅳ开始渲染"><a href="#Ⅳ开始渲染" class="headerlink" title="Ⅳ开始渲染"></a>Ⅳ开始渲染</h5><p>​    在此调用一次<code>loop</code>函数开始数据的渲染.</p>
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>​    这个问题考察了任务队列,<code>createDocumentFragment()</code>以及<code>window.requestAnimationFrame()</code>这两个方法,同时还用到了重绘的知识,开阔了思路.</p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20220404-liao-jie-web-wang-luo-ji-chu/">
+          <h3 class="post-title">
+            下一篇：了解web网络基础
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

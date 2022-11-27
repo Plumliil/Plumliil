@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>git提交问题</title>
+<meta name="keywords" content="git,git提交,git提交错误">
+<meta name="description" content="git提交每次都需要填写github帐号密码，解决方式
+使用命令
+git remote -v
+
+命令行反馈
+origin  [https:&#x2F;&#x2F;gitee.com&#x2F;xxx&#x2F;xxx.git](https:">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">git提交问题</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-07-10</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/Git/">
+              Git
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/%E8%B8%A9%E5%9D%91/">
+              踩坑
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>git提交每次都需要填写github帐号密码，解决方式</p>
+<p>使用命令</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">git remote -v<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>命令行反馈</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">origin  [https:&#x2F;&#x2F;gitee.com&#x2F;xxx&#x2F;xxx.git](https:&#x2F;&#x2F;gitee.com&#x2F;plumliil&#x2F;lii-ui.git) (fetch)
+origin  [https:&#x2F;&#x2F;gitee.com&#x2F;xxx&#x2F;xxx.git](https:&#x2F;&#x2F;gitee.com&#x2F;plumliil&#x2F;lii-ui.git) (push)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>改为ssh链接即可解决问题</p>
+<p><img src="https://secure2.wostatic.cn/static/jKDa6zRG1ELwvXP33djZ7R/%E6%88%AA%E5%9B%BE_%E9%80%89%E6%8B%A9%E5%8C%BA%E5%9F%9F_20220707144535.png" alt="img"></p>
+<p>复制ssh</p>
+<p>移除原有的提交方式</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">git remote rm origin<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>添加ssh提交方式</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">git remote add origin git@github.com:xxx&#x2F;xxx.git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>fatal: 当前分支 main 没有对应的上游分支。 为推送当前分支并建立与远程上游的跟踪，使用</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">git push --set-upstream origin main
+枚举对象: 71, 完成.
+对象计数中: 100% (71&#x2F;71), 完成.
+使用 8 个线程进行压缩
+压缩对象中: 100% (50&#x2F;50), 完成.
+写入对象中: 100% (55&#x2F;55), 7.00 KiB | 3.50 MiB&#x2F;s, 完成.
+总共 55 （差异 24），复用 0 （差异 0）
+remote: Resolving deltas: 100% (24&#x2F;24), completed with 9 local objects.
+To github.com:xxx&#x2F;xxx.git
+  xxxxxx..xxxxxx  main -&gt; main
+分支 &#39;main&#39; 设置为跟踪来自 &#39;origin&#39; 的远程分支 &#39;main&#39;。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>提交成功</p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20220609-cong-ling-pei-zhi-webpack-xiang-mu/">
+          <h3 class="post-title">
+            下一篇：从零配置Webpack项目
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

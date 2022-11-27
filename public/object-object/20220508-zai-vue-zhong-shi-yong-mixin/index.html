@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>在vue中使用mixin</title>
+<meta name="keywords" content="vue,mixin,混入,全局混入,局部混入">
+<meta name="description" content="什么是mixinmixin的中文意思是混入,是一种编程思想,在vue中可以通过mixin来分发组件中的可复用功能,当某一个组件使用mixin对象时,该mixin对象的内容就会被混入到组件当中,供组件使用.通过mixin我们可以将公共的方法或">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">在vue中使用mixin</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-05-08</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Vue/">
+              Vue
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h4 id="什么是mixin"><a href="#什么是mixin" class="headerlink" title="什么是mixin"></a>什么是mixin</h4><p>mixin的中文意思是混入,是一种编程思想,在vue中可以通过mixin来分发组件中的可复用功能,当某一个组件使用mixin对象时,该mixin对象的内容就会被混入到组件当中,供组件使用.<strong>通过mixin我们可以将公共的方法或者数据抽离出来使用,简化代码</strong>,和mixin类似的有vuex状态管理,但是vuex中的数据是所有使用vuex的组件通用的,在某一个组件中改变数据,其他组件中的相应数据也会发生改变,而mixin则不是这样,mixin对象在每个组件使用时互不干扰.</p>
+<h4 id="在vue中使用mixin的两种方法"><a href="#在vue中使用mixin的两种方法" class="headerlink" title="在vue中使用mixin的两种方法"></a>在vue中使用mixin的两种方法</h4><h5 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h5><p>在js文件中导出一个对象,对象中包含需要混入的数据或方法,对象中可以包含在vue中使用的生命周期钩子等</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> mixin <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    computed<span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token function">mounted</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    methods<span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="局部混入"><a href="#局部混入" class="headerlink" title="局部混入:"></a>局部混入:</h5><p>方法会进行覆盖,但是生命周期函数会合并执行,先执行mixin中的生命周期函数内容再执行组件生命周期内容</p>
+<p>一个组件中改变了mixin组件中的数据,另一个组件不受影响</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// mixin/index.js</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> myMixin <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">&#123;</span>
+            msg<span class="token operator">:</span> <span class="token string">'公共数据'</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    computed<span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'公共created生命周期方法'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    methods<span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">clickMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"公共点击方法"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&#x2F;&#x2F; A组件
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;h2&gt;A组件&lt;&#x2F;h2&gt;
+    &lt;button @click&#x3D;&quot;clickMe&quot;&gt;clickMe&lt;&#x2F;button&gt;
+    &lt;span&gt;&#123;&#123; msg &#125;&#125;&lt;&#x2F;span&gt;
+  &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+import &#123; myMixin &#125; from &quot;..&#x2F;mixin&#x2F;index&quot;;
+export default &#123;
+  mixins: [myMixin],
+  data() &#123;
+    return &#123;
+      value: &quot;A组件特有&quot;,
+    &#125;;
+  &#125;,
+  methods: &#123;&#125;,
+  created() &#123;
+    console.log(&quot;A组件生命周期&quot;);
+  &#125;,
+&#125;;
+&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&#x2F;&#x2F; B组件
+&lt;template&gt;
+    &lt;div&gt;
+        &lt;h2&gt;B组件&lt;&#x2F;h2&gt;
+        &lt;button @click&#x3D;&quot;clickMe&quot;&gt;clickMe&lt;&#x2F;button&gt;
+        &lt;span&gt;&#123;&#123;msg&#125;&#125;&lt;&#x2F;span&gt;
+    &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+import &#123;myMixin&#125; from &#39;..&#x2F;mixin&#x2F;index&#39;
+export default &#123;
+  mixins: [myMixin],
+  data() &#123;
+    return &#123;
+      value: &quot;B组件特有&quot;,
+    &#125;;
+  &#125;,
+  methods: &#123;
+    clickMe() &#123;
+      console.log(&quot;B组件特有方法&quot;);
+    &#125;,
+  &#125;,
+  created() &#123;
+    console.log(&quot;B组件生命周期&quot;);
+  &#125;,
+&#125;;
+&lt;&#x2F;script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&#x2F;&#x2F; App.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;cpm-a&gt;&lt;&#x2F;cpm-a&gt;
+    &lt;cpm-b&gt;&lt;&#x2F;cpm-b&gt;
+  &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script&gt;
+import cpmA from &quot;.&#x2F;components&#x2F;cpmA.vue&quot;;
+import cpmB from &quot;.&#x2F;components&#x2F;cpmB.vue&quot;;
+export default &#123;
+  components: &#123; cpmA, cpmB &#125;,
+&#125;;
+&lt;&#x2F;script&gt;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><img src="https://s2.loli.net/2022/04/30/H2RzLoZdfEX1uUj.png" alt="1651285652860.png"></p>
+<h5 id="全局混入"><a href="#全局混入" class="headerlink" title="全局混入:"></a>全局混入:</h5><p>在main.js中引用</p>
+<pre class="line-numbers language-JavaScript" data-language="JavaScript"><code class="language-JavaScript">&#x2F;&#x2F; main.js
+import &#123;myMixin&#125; from &#39;.&#x2F;mixin&#39;
+Vue.mixin(myMixin)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+
+
+
+<blockquote>
+<p>谨慎使用全局混入,因为它会影响每个单独创建的vue实例包括第三方组件.大多数情况下之应当应用于自定义选项,就像上面的事例一样,推荐将其作为插件发布,以免避免重复应用混入.</p>
+</blockquote>
+<h4 id="mixin使用选项合并规则"><a href="#mixin使用选项合并规则" class="headerlink" title="mixin使用选项合并规则:"></a>mixin使用选项合并规则:</h4><p>1.先执行mixin生命周期函数,再执行组件中生命周期函数.</p>
+<p>2.如果data里面数据有冲突,优先使用组件中的数据.</p>
+<p>3.当mixin中methods方法和组件方法重名时,优先使用组件方法</p>
+<h4 id="mixin优缺点"><a href="#mixin优缺点" class="headerlink" title="mixin优缺点:"></a>mixin优缺点:</h4><h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>1.提高代码复用性</p>
+<p>2.无需传递状态</p>
+<p>3.维护方便,只修改一个地方即可</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点:"></a>缺点:</h5><p>1.命名冲突</p>
+<p>2.滥用mixin后期不易维护</p>
+<p>3.不好溯源,排查问题困难</p>
+<p>4.不能轻易的重复代码</p>
+<p><strong>vue官方mixin讲解</strong>:<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/mixins.html#%E5%9F%BA%E7%A1%80">混入 — Vue.js (vuejs.org)</a></p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20220430-zai-vue-zhong-shi-yong-zi-ding-yi-zhi-ling/">
+          <h3 class="post-title">
+            下一篇：在vue中使用自定义指令
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

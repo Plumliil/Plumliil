@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>认识Ajax</title>
+<meta name="keywords" content="javascript,ajax,AJAX">
+<meta name="description" content="Ajax应用场景1.页面上拉加载更多数据2.列表数据无刷新分页3.表单项离开焦点数据验证4.搜索框提示文字下拉列表Ajax运行环境Ajax技术需要运行在网站环境下才会生效，可用Node创建的服务器作为网站服务器Ajax运行原理普通浏览器端—">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">认识Ajax</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-08-15</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/ajax/">
+              ajax
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="Ajax应用场景"><a href="#Ajax应用场景" class="headerlink" title="Ajax应用场景"></a>Ajax应用场景</h2><h5 id="1-页面上拉加载更多数据"><a href="#1-页面上拉加载更多数据" class="headerlink" title="1.页面上拉加载更多数据"></a>1.页面上拉加载更多数据</h5><h5 id="2-列表数据无刷新分页"><a href="#2-列表数据无刷新分页" class="headerlink" title="2.列表数据无刷新分页"></a>2.列表数据无刷新分页</h5><h5 id="3-表单项离开焦点数据验证"><a href="#3-表单项离开焦点数据验证" class="headerlink" title="3.表单项离开焦点数据验证"></a>3.表单项离开焦点数据验证</h5><h5 id="4-搜索框提示文字下拉列表"><a href="#4-搜索框提示文字下拉列表" class="headerlink" title="4.搜索框提示文字下拉列表"></a>4.搜索框提示文字下拉列表</h5><h2 id="Ajax运行环境"><a href="#Ajax运行环境" class="headerlink" title="Ajax运行环境"></a>Ajax运行环境</h2><h5 id="Ajax技术需要运行在网站环境下才会生效，可用Node创建的服务器作为网站服务器"><a href="#Ajax技术需要运行在网站环境下才会生效，可用Node创建的服务器作为网站服务器" class="headerlink" title="Ajax技术需要运行在网站环境下才会生效，可用Node创建的服务器作为网站服务器"></a>Ajax技术需要运行在网站环境下才会生效，可用Node创建的服务器作为网站服务器</h5><h2 id="Ajax运行原理"><a href="#Ajax运行原理" class="headerlink" title="Ajax运行原理"></a>Ajax运行原理</h2><h5 id="普通"><a href="#普通" class="headerlink" title="普通"></a>普通</h5><p><strong>浏览器端——-请求——-&gt;服务器端</strong></p>
+<p><strong>浏览器端&lt;——响应——-服务器端</strong></p>
+<p>​           <strong>开发人员不可控</strong></p>
+<h5 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h5><p><strong>浏览器端——– 创建——-&gt;Ajax——-请求——-&gt;服务器端</strong></p>
+<p><strong>浏览器端&lt;——– 响应——Ajax&lt;——-响应——-服务器端</strong></p>
+<p>​                            <strong>开发人员可控</strong></p>
+<h5 id="ajax相当于浏览器发送请求与接收响应的代理人，以实现不影响用户浏览页面的情况下局部更新页面数据，从而提高用户体验"><a href="#ajax相当于浏览器发送请求与接收响应的代理人，以实现不影响用户浏览页面的情况下局部更新页面数据，从而提高用户体验" class="headerlink" title="ajax相当于浏览器发送请求与接收响应的代理人，以实现不影响用户浏览页面的情况下局部更新页面数据，从而提高用户体验"></a>ajax相当于浏览器发送请求与接收响应的代理人，以实现不影响用户浏览页面的情况下局部更新页面数据，从而提高用户体验</h5><span id="more"></span>
+
+<h2 id="Ajax实现步骤-需重启服务器"><a href="#Ajax实现步骤-需重启服务器" class="headerlink" title="Ajax实现步骤(需重启服务器)"></a>Ajax实现步骤(需重启服务器)</h2><h5 id="1-创建Ajax对象"><a href="#1-创建Ajax对象" class="headerlink" title="1.创建Ajax对象"></a>1.创建Ajax对象</h5><p><code>var xhr=new XMLHttpPequest()</code></p>
+<p>创建ajax对象httprequest使用http请求，返回xml文件</p>
+<p>现在在ajax请求中一般服务器端一般返回json数据</p>
+<h5 id="2-告诉Ajax请求地址及请求方式"><a href="#2-告诉Ajax请求地址及请求方式" class="headerlink" title="2.告诉Ajax请求地址及请求方式"></a>2.告诉Ajax请求地址及请求方式</h5><p><code>xhr.open(&#39;get&#39;,&#39;http://www.example.com&#39;);</code></p>
+<p>open方法，第一个参数为请求方式，第二个参数是请求地址</p>
+<h5 id="3-发送请求"><a href="#3-发送请求" class="headerlink" title="3.发送请求"></a>3.发送请求</h5><p><code>xhr.send()</code></p>
+<h5 id="4-获取服务器端给与客户端的响应数据"><a href="#4-获取服务器端给与客户端的响应数据" class="headerlink" title="4.获取服务器端给与客户端的响应数据"></a>4.获取服务器端给与客户端的响应数据</h5><p><code>xhr.onload=function()&#123;console.log(xhr.requestseText);&#125;</code></p>
+<h2 id="服务器端响应的数据格式"><a href="#服务器端响应的数据格式" class="headerlink" title="服务器端响应的数据格式"></a>服务器端响应的数据格式</h2><h5 id="在真实的项目中，服务器端大部分情况下会以json对象作为响应数据的格式，当客户端拿到数据时，要将json数据和html字符串进行拼接，然后将拼接的结果展示在页面上"><a href="#在真实的项目中，服务器端大部分情况下会以json对象作为响应数据的格式，当客户端拿到数据时，要将json数据和html字符串进行拼接，然后将拼接的结果展示在页面上" class="headerlink" title="在真实的项目中，服务器端大部分情况下会以json对象作为响应数据的格式，当客户端拿到数据时，要将json数据和html字符串进行拼接，然后将拼接的结果展示在页面上"></a>在真实的项目中，服务器端<em>大部分情况下会以json对象作为响应数据的格式，</em>当客户端拿到数据时，要将json数据和html字符串进行拼接，然后将拼接的结果展示在页面上</h5><h5 id="在http请求与响应的过程中，无论是请求参数还是相应内容，如果是对象类型，最终都会被转化成对象字符串进行传输"><a href="#在http请求与响应的过程中，无论是请求参数还是相应内容，如果是对象类型，最终都会被转化成对象字符串进行传输" class="headerlink" title="在http请求与响应的过程中，无论是请求参数还是相应内容，如果是对象类型，最终都会被转化成对象字符串进行传输"></a>在http请求与响应的过程中，无论是请求参数还是相应内容，如果是对象类型，最终都会被转化成对象字符串进行传输</h5><p><code>JSON.parse()// 将字符串转化为json对象</code></p>
+<h2 id="请求参数传递"><a href="#请求参数传递" class="headerlink" title="请求参数传递"></a>请求参数传递</h2><h5 id="传统网站表单提交"><a href="#传统网站表单提交" class="headerlink" title="传统网站表单提交"></a>传统网站表单提交</h5><pre class="line-numbers language-none"><code class="language-none">&lt;form method&#x3D;&quot;get&quot; action&#x3D;&quot;http:&#x2F;&#x2F;www.example.com&quot;&gt;
+        &lt;input type&#x3D;&quot;text&quot; name&#x3D;&quot;username&quot;&gt;
+        &lt;input type&#x3D;&quot;password&quot; name&#x3D;&quot;password&quot;&gt;
+&lt;&#x2F;form&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h5 id="Get请求方式"><a href="#Get请求方式" class="headerlink" title="Get请求方式"></a>Get请求方式</h5><p><code>xhr.open(&#39;get&#39;,&#39;http://www.example.com&#39;);</code></p>
+<h5 id="Post请求方式"><a href="#Post请求方式" class="headerlink" title="Post请求方式"></a>Post请求方式</h5><p><code>xhr.setRequestHeader(&#39;Content-Type&#39;,&#39;applicate/x-www-form-urlencoded&#39;)</code></p>
+<p><code>xhr.send(&#39;name=zhangsan&amp;age=20&#39;)</code></p>
+<h5 id="请求报文"><a href="#请求报文" class="headerlink" title="请求报文"></a>请求报文</h5><p>在HTTP请求和响应的过程中传递的数据就是叫报文，包括要传送的数据和一些附加信息，这些数据和信息要遵循规定好的格式</p>
+<p>客户端发送请求报文，请求方式和请求地址，服务器进行响应</p>
+<h2 id="请求参数的格式"><a href="#请求参数的格式" class="headerlink" title="请求参数的格式"></a>请求参数的格式</h2><h5 id="1-application-x-www-form-urlencoded"><a href="#1-application-x-www-form-urlencoded" class="headerlink" title="1.application/x-www-form-urlencoded"></a>1.application/x-www-form-urlencoded</h5><p>name=zhangsan&amp;sex=男</p>
+<h5 id="2-application-json"><a href="#2-application-json" class="headerlink" title="2.application/json"></a>2.application/json</h5><p><code>&#123;name:&#39;zhangsan&#39;,age:&#39;20&#39;,sex:&#39;男&#39;&#125;</code></p>
+<h5 id="在请求头中指定Content-type属性的值是application-json-告诉服务器当前请求参数的格式是json"><a href="#在请求头中指定Content-type属性的值是application-json-告诉服务器当前请求参数的格式是json" class="headerlink" title="在请求头中指定Content-type属性的值是application/json,告诉服务器当前请求参数的格式是json"></a>在请求头中指定Content-type属性的值是application/json,告诉服务器当前请求参数的格式是json</h5><p><code>JSON.stringify()//将json对象转化为json字符串</code></p>
+<h5 id="Get请求是不能提交json对象数据格式的，传统网站的表单提交也是不支持json对象数据格式的"><a href="#Get请求是不能提交json对象数据格式的，传统网站的表单提交也是不支持json对象数据格式的" class="headerlink" title="Get请求是不能提交json对象数据格式的，传统网站的表单提交也是不支持json对象数据格式的"></a>Get请求是不能提交json对象数据格式的，传统网站的表单提交也是不支持json对象数据格式的</h5><h2 id="获取服务器端响应"><a href="#获取服务器端响应" class="headerlink" title="获取服务器端响应"></a>获取服务器端响应</h2><h5 id="Ajax状态码"><a href="#Ajax状态码" class="headerlink" title="Ajax状态码"></a>Ajax状态码</h5><p>在创建ajax对象，配置ajax对象，发送请求，一级接收完服务器端响应数据，这个过程中的每一步骤都会对应一个数值，这个数值就是ajax状态码。</p>
+<p>0：请求未初始化（还没有调用open）</p>
+<p>1：请求已经建立，但是还没有发送（还没有调用send）</p>
+<p>2：请求已发送</p>
+<p>3：请求正在处理中，通常响应中已经有部分数据可以用了</p>
+<p>4：响应已完成，可以获取并使用服务器的响应</p>
+<p><code>xhr.readyState // 获取ajax状态码</code></p>
+<h2 id="获取服务器端的响应"><a href="#获取服务器端的响应" class="headerlink" title="获取服务器端的响应"></a>获取服务器端的响应</h2><p>onreadystatechange事件</p>
+<p>当Ajax状态码发生变化时将自动触发该事件</p>
+<table>
+<thead>
+<tr>
+<th>区别描述</th>
+<th>onload事件</th>
+<th>onreadystatuschange事件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>是否兼容IE低版本</td>
+<td>不兼容</td>
+<td>兼容</td>
+</tr>
+<tr>
+<td>是否需要判断Ajax状态码</td>
+<td>不需要</td>
+<td>需要</td>
+</tr>
+<tr>
+<td>被调用次数</td>
+<td>一次</td>
+<td>多次</td>
+</tr>
+</tbody></table>
+<h2 id="Ajax错误处理"><a href="#Ajax错误处理" class="headerlink" title="Ajax错误处理"></a>Ajax错误处理</h2><h5 id="1-网络畅通，服务器端能接收到请求，服务器端返回的结果不是预期的结果"><a href="#1-网络畅通，服务器端能接收到请求，服务器端返回的结果不是预期的结果" class="headerlink" title="1.网络畅通，服务器端能接收到请求，服务器端返回的结果不是预期的结果"></a>1.网络畅通，服务器端能接收到请求，服务器端返回的结果不是预期的结果</h5><p>可判断服务器返回的状态码，粉别进行处理。xhr.status获取http状态码</p>
+<h5 id="2-网络畅通，服务器端没有收到请求，返回404状态码"><a href="#2-网络畅通，服务器端没有收到请求，返回404状态码" class="headerlink" title="2.网络畅通，服务器端没有收到请求，返回404状态码"></a>2.网络畅通，服务器端没有收到请求，返回404状态码</h5><p>检查请求地址是否错误</p>
+<h5 id="3-网络通常，服务器能收到请求，服务器端返回500状态码"><a href="#3-网络通常，服务器能收到请求，服务器端返回500状态码" class="headerlink" title="3.网络通常，服务器能收到请求，服务器端返回500状态码"></a>3.网络通常，服务器能收到请求，服务器端返回500状态码</h5><h5 id="4-网络中断，请求无法发送到服务器"><a href="#4-网络中断，请求无法发送到服务器" class="headerlink" title="4.网络中断，请求无法发送到服务器"></a>4.网络中断，请求无法发送到服务器</h5><p>会触发xhr对象下面的onerror事件，再onerror事件处理函数中对错误进行处理</p>
+<h2 id="状态码区分"><a href="#状态码区分" class="headerlink" title="状态码区分"></a>状态码区分</h2><h5 id="Ajax状态码：表示Ajax请求的过程状态-ajax对象返回"><a href="#Ajax状态码：表示Ajax请求的过程状态-ajax对象返回" class="headerlink" title="Ajax状态码：表示Ajax请求的过程状态 ajax对象返回"></a>Ajax状态码：表示Ajax请求的过程状态 ajax对象返回</h5><h5 id="HTTP状态码：表示请求的处理结果-是服务器端返回的"><a href="#HTTP状态码：表示请求的处理结果-是服务器端返回的" class="headerlink" title="HTTP状态码：表示请求的处理结果  是服务器端返回的"></a>HTTP状态码：表示请求的处理结果  是服务器端返回的</h5><h2 id="低版本IE浏览器的缓存问题"><a href="#低版本IE浏览器的缓存问题" class="headerlink" title="低版本IE浏览器的缓存问题"></a>低版本IE浏览器的缓存问题</h2><h5 id="在低版本的IE浏览器中，Ajax请求有严重的缓存问题，即在请求地址不会发生变化的情况下，只有第一次请求会真正的发送到服务器端，后续的请求会从浏览器的缓存中获取结果，即使服务器端数据更新了，客户端还是拿到的是缓存中的旧数据"><a href="#在低版本的IE浏览器中，Ajax请求有严重的缓存问题，即在请求地址不会发生变化的情况下，只有第一次请求会真正的发送到服务器端，后续的请求会从浏览器的缓存中获取结果，即使服务器端数据更新了，客户端还是拿到的是缓存中的旧数据" class="headerlink" title="在低版本的IE浏览器中，Ajax请求有严重的缓存问题，即在请求地址不会发生变化的情况下，只有第一次请求会真正的发送到服务器端，后续的请求会从浏览器的缓存中获取结果，即使服务器端数据更新了，客户端还是拿到的是缓存中的旧数据"></a>在低版本的IE浏览器中，Ajax请求有严重的缓存问题，即在请求地址不会发生变化的情况下，只有第一次请求会真正的发送到服务器端，后续的请求会从浏览器的缓存中获取结果，即使服务器端数据更新了，客户端还是拿到的是缓存中的旧数据</h5><h5 id="解决方案：在请求地址后面加请求参数，保证每一次请求中的请求参数的值不同"><a href="#解决方案：在请求地址后面加请求参数，保证每一次请求中的请求参数的值不同" class="headerlink" title="解决方案：在请求地址后面加请求参数，保证每一次请求中的请求参数的值不同"></a>解决方案：在请求地址后面加请求参数，保证每一次请求中的请求参数的值不同</h5><p><code>xhr.open(&#39;get&#39;,&#39;http://www.example.com?t=&#39;+Math.random())</code></p>
+<h2 id="同步异步概述"><a href="#同步异步概述" class="headerlink" title="同步异步概述"></a>同步异步概述</h2><h5 id="同步：一个人同一时间只能做同一件事情，只有一件事情做完后，才能做另外一件事情"><a href="#同步：一个人同一时间只能做同一件事情，只有一件事情做完后，才能做另外一件事情" class="headerlink" title="同步：一个人同一时间只能做同一件事情，只有一件事情做完后，才能做另外一件事情"></a>同步：一个人同一时间只能做同一件事情，只有一件事情做完后，才能做另外一件事情</h5><h5 id="console-log-39-before-39"><a href="#console-log-39-before-39" class="headerlink" title="console.log(&#39;before&#39;)"></a><code>console.log(&#39;before&#39;)</code></h5><h5 id="console-log-39-after-39"><a href="#console-log-39-after-39" class="headerlink" title="console.log(&#39;after&#39;)"></a><code>console.log(&#39;after&#39;)</code></h5><h5 id="异步：一个人一件事情做了一半，转而去做另一件事情，当其他事情做完后，再回过头来继续做之前未完成的事情"><a href="#异步：一个人一件事情做了一半，转而去做另一件事情，当其他事情做完后，再回过头来继续做之前未完成的事情" class="headerlink" title="异步：一个人一件事情做了一半，转而去做另一件事情，当其他事情做完后，再回过头来继续做之前未完成的事情"></a>异步：一个人一件事情做了一半，转而去做另一件事情，当其他事情做完后，再回过头来继续做之前未完成的事情</h5><h5 id="异步代码虽然需要花时间去执行，但是程序不会等待异步代码执行后再继续执行后续代码，而是直接执行后续代码，当后续代码执行完后再回头看异步代码是否返回结果，如果已有返回结果，再调用事先准备好的回调函数处理异步代码执行结果"><a href="#异步代码虽然需要花时间去执行，但是程序不会等待异步代码执行后再继续执行后续代码，而是直接执行后续代码，当后续代码执行完后再回头看异步代码是否返回结果，如果已有返回结果，再调用事先准备好的回调函数处理异步代码执行结果" class="headerlink" title="异步代码虽然需要花时间去执行，但是程序不会等待异步代码执行后再继续执行后续代码，而是直接执行后续代码，当后续代码执行完后再回头看异步代码是否返回结果，如果已有返回结果，再调用事先准备好的回调函数处理异步代码执行结果"></a>异步代码虽然需要花时间去执行，但是程序不会等待异步代码执行后再继续执行后续代码，而是直接执行后续代码，当后续代码执行完后再回头看异步代码是否返回结果，如果已有返回结果，再调用事先准备好的回调函数处理异步代码执行结果</h5><p><code>console.log(&#39;before&#39;);</code></p>
+<p><code>setTimeout(()=&gt;&#123;console.log(&#39;last)&#125;,2000)</code></p>
+<p><code>console.log(&#39;after&#39;)</code>;</p>
+<h2 id="Ajax封装"><a href="#Ajax封装" class="headerlink" title="Ajax封装"></a>Ajax封装</h2><h5 id="问题：发送一次请求代码过多，发送请求代码冗余重复"><a href="#问题：发送一次请求代码过多，发送请求代码冗余重复" class="headerlink" title="问题：发送一次请求代码过多，发送请求代码冗余重复"></a>问题：发送一次请求代码过多，发送请求代码冗余重复</h5><h5 id="解决方案：将请求代码封装到函数中，发请求是调用函数即可。"><a href="#解决方案：将请求代码封装到函数中，发请求是调用函数即可。" class="headerlink" title="解决方案：将请求代码封装到函数中，发请求是调用函数即可。"></a>解决方案：将请求代码封装到函数中，发请求是调用函数即可。</h5><h2 id="请求参数要考虑的问题："><a href="#请求参数要考虑的问题：" class="headerlink" title="请求参数要考虑的问题："></a>请求参数要考虑的问题：</h2><h5 id="1-请求参数位置的问题"><a href="#1-请求参数位置的问题" class="headerlink" title="1.请求参数位置的问题"></a>1.请求参数位置的问题</h5><h6 id="将请求参数传递到ajax内部，在函数内部根据请求方式的不同请求参数放置在不同的位置"><a href="#将请求参数传递到ajax内部，在函数内部根据请求方式的不同请求参数放置在不同的位置" class="headerlink" title="将请求参数传递到ajax内部，在函数内部根据请求方式的不同请求参数放置在不同的位置"></a>将请求参数传递到ajax内部，在函数内部根据请求方式的不同请求参数放置在不同的位置</h6><h6 id="get-放在请求地址的后面"><a href="#get-放在请求地址的后面" class="headerlink" title="get 放在请求地址的后面"></a>get 放在请求地址的后面</h6><h6 id="post-放在send方法中"><a href="#post-放在send方法中" class="headerlink" title="post 放在send方法中"></a>post 放在send方法中</h6><h5 id="2-请求参数的格式问题"><a href="#2-请求参数的格式问题" class="headerlink" title="2.请求参数的格式问题"></a>2.请求参数的格式问题</h5><h6 id="application-x-www-form-urlencoded"><a href="#application-x-www-form-urlencoded" class="headerlink" title="application/x-www-form-urlencoded"></a>application/x-www-form-urlencoded</h6><h6 id="参数名称-参数值-amp-参数名称-参数值"><a href="#参数名称-参数值-amp-参数名称-参数值" class="headerlink" title="参数名称=参数值&amp;参数名称==参数值"></a>参数名称=参数值&amp;参数名称==参数值</h6><h6 id="application-json"><a href="#application-json" class="headerlink" title="application/json"></a>application/json</h6><h6 id="name-39-zhangsan-39-age-20"><a href="#name-39-zhangsan-39-age-20" class="headerlink" title="{name:&#39;zhangsan&#39;,age:20}"></a><code>&#123;name:&#39;zhangsan&#39;,age:20&#125;</code></h6><h5 id="传递对象数据类型对于函数调用者更加友好"><a href="#传递对象数据类型对于函数调用者更加友好" class="headerlink" title="传递对象数据类型对于函数调用者更加友好"></a>传递对象数据类型对于函数调用者更加友好</h5><h5 id="在函数内部对象数据类型转换为字符串"><a href="#在函数内部对象数据类型转换为字符串" class="headerlink" title="在函数内部对象数据类型转换为字符串"></a>在函数内部对象数据类型转换为字符串</h5>
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Ajax%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="top-box-text">Ajax应用场景</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Ajax%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83"><span class="top-box-text">Ajax运行环境</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Ajax%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86"><span class="top-box-text">Ajax运行原理</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Ajax%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4-%E9%9C%80%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="top-box-text">Ajax实现步骤(需重启服务器)</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%93%8D%E5%BA%94%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F"><span class="top-box-text">服务器端响应的数据格式</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="top-box-text">请求参数传递</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="top-box-text">请求参数的格式</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E8%8E%B7%E5%8F%96%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E5%93%8D%E5%BA%94"><span class="top-box-text">获取服务器端响应</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E8%8E%B7%E5%8F%96%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AB%AF%E7%9A%84%E5%93%8D%E5%BA%94"><span class="top-box-text">获取服务器端的响应</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Ajax%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="top-box-text">Ajax错误处理</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81%E5%8C%BA%E5%88%86"><span class="top-box-text">状态码区分</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E4%BD%8E%E7%89%88%E6%9C%ACIE%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98"><span class="top-box-text">低版本IE浏览器的缓存问题</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5%E6%A6%82%E8%BF%B0"><span class="top-box-text">同步异步概述</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#Ajax%E5%B0%81%E8%A3%85"><span class="top-box-text">Ajax封装</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9A"><span class="top-box-text">请求参数要考虑的问题：</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20210815-ajax-han-shu-feng-zhuang/">
+          <h3 class="post-title">
+            下一篇：Ajax函数封装
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

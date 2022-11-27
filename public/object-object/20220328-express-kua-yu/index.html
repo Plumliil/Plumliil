@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>express跨域</title>
+<meta name="keywords" content="跨域,nodejs,express,Express框架">
+<meta name="description" content="express搭建服务器跨域问题解决方案:设置请求头为&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;
+具体代码
+app.all(&#39;*&#39;, function(req">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">express跨域</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-03-28</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF%E7%AF%87/">
+              后端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Express/">
+              Express
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h3 id="express搭建服务器跨域问题"><a href="#express搭建服务器跨域问题" class="headerlink" title="express搭建服务器跨域问题"></a>express搭建服务器跨域问题</h3><h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案:"></a>解决方案:</h5><p>设置请求头为<code>&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;</code></p>
+<p>具体代码</p>
+<pre class="line-numbers language-none"><code class="language-none">app.all(&#39;*&#39;, function(req, res, next) &#123;
+    res.header(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);
+    res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With,Content-Type&quot;);
+    res.header(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);
+    res.header(&quot;Access-Control-Allow-Methods&quot;,&quot;PUT,POST,GET,DELETE,OPTIONS&quot;);
+    res.header(&quot;X-Powered-By&quot;,&#39; Express 4.17.1&#39;);
+    res.header(&quot;Content-Type&quot;, &quot;application&#x2F;json;charset&#x3D;utf-8&quot;);
+    next();
+  &#125;);
+app.use(&#39;&#x2F;api&#39;,Router)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>记住:解决跨域问题的这个代码<strong>必须</strong>放在Api调用的<strong>前边</strong>,否则跨域代码不起作用</p>
+
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#express%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98"><span class="top-box-text">express搭建服务器跨域问题</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20220309-di-gui-xue-xi/">
+          <h3 class="post-title">
+            下一篇：递归学习
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

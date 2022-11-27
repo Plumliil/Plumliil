@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>call，apply，bind的简单用法</title>
+<meta name="keywords" content="javascript,call,apply,bind">
+<meta name="description" content="简单了解一下call，apply以及bind的用法首先说一下三者的共同之处call、apply、bind作用是改变函数执行时的上下文，简单地说就是改变函数运行时的this指向，当我们函数中所需要的this指向不是当前的this时可以用这三种">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">call，apply，bind的简单用法</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-11-23</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/JavaScript/">
+              JavaScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="简单了解一下call，apply以及bind的用法"><a href="#简单了解一下call，apply以及bind的用法" class="headerlink" title="简单了解一下call，apply以及bind的用法"></a>简单了解一下call，apply以及bind的用法</h2><h3 id="首先说一下三者的共同之处"><a href="#首先说一下三者的共同之处" class="headerlink" title="首先说一下三者的共同之处"></a>首先说一下三者的共同之处</h3><p>call、apply、bind作用是改变函数执行时的上下文，简单地说就是改变函数运行时的this指向，当我们函数中所需要的this指向不是当前的this时可以用这三种方法来改变this指向</p>
+<h3 id="其次来介绍一下这三种方法并说明这三种方法的作用"><a href="#其次来介绍一下这三种方法并说明这三种方法的作用" class="headerlink" title="其次来介绍一下这三种方法并说明这三种方法的作用"></a>其次来介绍一下这三种方法并说明这三种方法的作用</h3><h3 id="call"><a href="#call" class="headerlink" title="call()"></a>call()</h3><p><code>call(绑定给this的值，，第一个参数，第二个参数)</code></p>
+<p><code>call(this，agr1，arg2)</code></p>
+<span id="more"></span>
+
+<p>注意：call（）的传参，每个参数中间用 <code>,</code>来分割</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> obj1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  name<span class="token operator">:</span> <span class="token string">'obj1Name'</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">setAge</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">age</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">let</span> obj2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  name<span class="token operator">:</span> <span class="token string">'obj2Name'</span>
+<span class="token punctuation">&#125;</span>
+
+obj1<span class="token punctuation">.</span><span class="token function">setAge</span><span class="token punctuation">(</span><span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#123;"name":"obj1Name","age":18&#125;</span>
+<span class="token comment">// obj2.setAge(19); // obj2.setAge is not a function</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+obj1<span class="token punctuation">.</span><span class="token function">setAge</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>obj2<span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#123;"name":"obj2Name","age":20&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>obj2对象中没有setAge函数当需要用到setAge函数时可以通过call()改变obj1中setAge函数this的指向并传递参数，指向obj2，来给obj2设置age。</p>
+<h3 id="apply"><a href="#apply" class="headerlink" title="apply()"></a>apply()</h3><p><code>apply(绑定给this的值,[arg1,arg2])</code></p>
+<p><code>apply(this，[agr1，arg2])</code></p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">let</span> obj1 <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  name<span class="token operator">:</span> <span class="token string">'obj1Name'</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">setAge</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">age</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">let</span> obj2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  name<span class="token operator">:</span> <span class="token string">'obj2Name'</span>
+<span class="token punctuation">&#125;</span>
+
+obj1<span class="token punctuation">.</span><span class="token function">setAge</span><span class="token punctuation">(</span><span class="token number">18</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj1<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#123;"name":"obj1Name","age":18&#125;</span>
+<span class="token comment">// obj2.setAge(19); // obj2.setAge is not a function</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+obj1<span class="token punctuation">.</span><span class="token function">setAge</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>obj2<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj2<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// &#123;"name":"obj2Name","age":20&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>apply()和call()的用法相似，唯一的不同点就是使用apply()方法传参时需要把参数传入数组中</p>
+<h3 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h3><p><code>bind(绑定给this的值,arg1,arg2)(arg3)</code></p>
+<p><code>bind(this，agr1，arg2)(arg3)</code><br>和call()很相似，第一个参数是this的指向，从第二个参数开始是接收的参数列表。区别在于bind方法返回值是函数以及bind接收的参数列表的使用。</p>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>f<span class="token operator">+</span>a<span class="token operator">+</span>b
+<span class="token punctuation">&#125;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>f<span class="token operator">:</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 4</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>f<span class="token operator">:</span><span class="token number">2</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 5</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="call-apply-bind-三种方法的区别"><a href="#call-apply-bind-三种方法的区别" class="headerlink" title="call(),apply(),bind()三种方法的区别"></a>call(),apply(),bind()三种方法的区别</h3><p>bind()返回对应函数, 便于稍后调用； apply(), call()则是立即调用。</p>
+<h4 id="需要注意的时箭头函数的this指向，箭头函数内的this的指向指的是箭头函数所在对象中的this"><a href="#需要注意的时箭头函数的this指向，箭头函数内的this的指向指的是箭头函数所在对象中的this" class="headerlink" title="需要注意的时箭头函数的this指向，箭头函数内的this的指向指的是箭头函数所在对象中的this"></a>需要注意的时箭头函数的this指向，箭头函数内的this的指向指的是箭头函数所在对象中的this</h4>
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8Bcall%EF%BC%8Capply%E4%BB%A5%E5%8F%8Abind%E7%9A%84%E7%94%A8%E6%B3%95"><span class="top-box-text">简单了解一下call，apply以及bind的用法</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E9%A6%96%E5%85%88%E8%AF%B4%E4%B8%80%E4%B8%8B%E4%B8%89%E8%80%85%E7%9A%84%E5%85%B1%E5%90%8C%E4%B9%8B%E5%A4%84"><span class="top-box-text">首先说一下三者的共同之处</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%85%B6%E6%AC%A1%E6%9D%A5%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%8B%E8%BF%99%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95%E5%B9%B6%E8%AF%B4%E6%98%8E%E8%BF%99%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="top-box-text">其次来介绍一下这三种方法并说明这三种方法的作用</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#call"><span class="top-box-text">call()</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#apply"><span class="top-box-text">apply()</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#bind"><span class="top-box-text">bind()</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#call-apply-bind-%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="top-box-text">call(),apply(),bind()三种方法的区别</span></a></li></ol></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20211122-qian-kao-bei-yu-shen-kao-bei/">
+          <h3 class="post-title">
+            下一篇：浅拷贝与深拷贝
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

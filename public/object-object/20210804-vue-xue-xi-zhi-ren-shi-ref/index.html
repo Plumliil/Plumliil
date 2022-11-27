@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>Vue学习之认识ref</title>
+<meta name="keywords" content="vue,vue2,ref">
+<meta name="description" content="ref相当于一个dom节点，值为string
+通俗将类似于原生js的document.querySelector(‘xxx’)；但是不同的是vue是操纵虚拟dom，在渲染初期并没有这个属性，而是在创建vue实例后才加到虚拟dom中。
+其中r">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">Vue学习之认识ref</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-08-04</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Vue/">
+              Vue
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>ref相当于一个dom节点，值为string</p>
+<p>通俗将类似于原生js的document.querySelector(‘xxx’)；但是不同的是vue是操纵虚拟dom，在渲染初期并没有这个属性，而是在创建vue实例后才加到虚拟dom中。</p>
+<p>其中ref有以下几种常见用法：</p>
+<p>本页面获取dom元素</p>
+<pre class="line-numbers language-xml" data-language="xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>divmsg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>divmsg<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>getmsg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>div内元素<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">getmsg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+	console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>$ref<span class="token punctuation">.</span>divmsg<span class="token punctuation">)</span>
+<span class="token punctuation">&#125;</span>
+<span class="token comment">// 输出11111</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<span id="more"></span>
+
+<p>获取子组件中的data</p>
+<p>子组件</p>
+<pre class="line-numbers language-xml-dtd" data-language="xml-dtd"><code class="language-xml-dtd">&lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;&#x2F;div&gt;
+------------------
+data()&#123;
+	return&#123;
+		msg:&#39;hello world！&#39;
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>父组件</p>
+<pre class="line-numbers language-xml-dtd" data-language="xml-dtd"><code class="language-xml-dtd"> &lt;div id&#x3D;&quot;app&quot;&gt;
+	&lt;Child ref&#x3D;&quot;child&quot;&gt;&lt;&#x2F;Child&gt;
+    &lt;button @click&#x3D;&quot;getChild&quot;&gt;获取子组件中值&lt;&#x2F;button&gt;
+  &lt;&#x2F;div&gt;
+---------------------------------
+import xxx from xxx
+methods:&#123;
+	getchild()&#123;
+		console.log(this.$ref.child.msg);
+	&#125;
+&#125;
+&#x2F;&#x2F; 输出：hello world!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>调用子组件中方法</p>
+<p>子组件</p>
+<pre class="line-numbers language-xml-dtd" data-language="xml-dtd"><code class="language-xml-dtd">&lt;div&gt;&lt;&#x2F;div&gt;
+----------------------
+methods:&#123;
+	childMethod()&#123;
+		console.log(&#39;childMethod&#39;);
+	&#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>父组件</p>
+<pre class="line-numbers language-xml-dtd" data-language="xml-dtd"><code class="language-xml-dtd"> &lt;div id&#x3D;&quot;app&quot;&gt;
+	&lt;Child ref&#x3D;&quot;child&quot;&gt;&lt;&#x2F;Child&gt;
+    &lt;button @click&#x3D;&quot;getChild&quot;&gt;调用子组件方法&lt;&#x2F;button&gt;
+  &lt;&#x2F;div&gt;
+---------------------------------
+import xxx from xxx
+methods:&#123;
+	getchild()&#123;
+		console.log(this.$ref.child.childMethod());
+	&#125;
+&#125;
+&#x2F;&#x2F; 输出：hello world!<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>其中$ref是一个对象，存放已注册过ref的所有子组件</p>
+<p>通过<code>vue实例.$refs.属性名</code>即可获取标记的元素</p>
+<p>如果ref重名后面的会把前面的覆盖</p>
+<p>其中若元素使用v-for则返回dom节点数组</p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20210802-vue-zhong-v-on-shi-jian-zong-jie/">
+          <h3 class="post-title">
+            下一篇：Vue中v-on事件总结
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

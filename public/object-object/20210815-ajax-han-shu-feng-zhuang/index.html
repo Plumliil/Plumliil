@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>Ajax函数封装</title>
+<meta name="keywords" content="javascript,ajax,AJAX,ajax封装">
+<meta name="description" content="ajax(&#123;
+    url:'http://localhost:3000/xxx',
+    data:&#123;
+        name:'zhangsan',
+        age:20
+    &#125;,
+   ">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">Ajax函数封装</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-08-15</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/ajax/">
+              ajax
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">ajax</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    url<span class="token operator">:</span><span class="token string">'http://localhost:3000/xxx'</span><span class="token punctuation">,</span>
+    data<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+        name<span class="token operator">:</span><span class="token string">'zhangsan'</span><span class="token punctuation">,</span>
+        age<span class="token operator">:</span><span class="token number">20</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">success</span><span class="token operator">:</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<span id="more"></span>
+
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">ajax</span><span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+    <span class="token comment">// 存储默认值</span>
+    <span class="token keyword">var</span> defaults<span class="token operator">=</span><span class="token punctuation">&#123;</span>
+        type<span class="token operator">:</span> <span class="token string">'get'</span><span class="token punctuation">,</span>
+        url<span class="token operator">:</span><span class="token string">''</span><span class="token punctuation">,</span>
+        data<span class="token operator">:</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        header<span class="token operator">:</span><span class="token punctuation">&#123;</span>
+            <span class="token string">'Content-Type'</span><span class="token operator">:</span><span class="token string">'application/x-www-form-urlencoded'</span>
+        <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token function-variable function">success</span><span class="token operator">:</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token function-variable function">error</span><span class="token operator">:</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 使用options对象中的属性覆盖defaults中的属性</span>
+    Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>defaults<span class="token punctuation">,</span>options<span class="token punctuation">)</span>
+    <span class="token comment">// 创建ajax对象</span>
+    <span class="token keyword">var</span> xhr<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 拼接请求参数的对象</span>
+    <span class="token keyword">var</span> params<span class="token operator">=</span><span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token comment">// 循环用户传递过来的对象格式参数</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> attr <span class="token keyword">in</span> defaults<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        params<span class="token operator">+=</span>attr<span class="token operator">+</span><span class="token string">'='</span><span class="token operator">+</span>defaults<span class="token punctuation">.</span>data<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token operator">+</span><span class="token string">'&amp;'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>more<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token comment">// 参数后边的&amp;截取掉</span>
+    params<span class="token operator">=</span>params<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span>params<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 判断请求方式</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>defaults<span class="token punctuation">.</span>type<span class="token operator">==</span><span class="token string">'get'</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        defaults<span class="token punctuation">.</span>url<span class="token operator">=</span>defaults<span class="token punctuation">.</span>url<span class="token operator">+</span><span class="token string">'?'</span><span class="token operator">+</span>params<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    <span class="token comment">// 配置ajax对象</span>
+    xhr<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span>defaults<span class="token punctuation">.</span>type<span class="token punctuation">,</span>defaults<span class="token punctuation">.</span>url<span class="token punctuation">)</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>defaults<span class="token punctuation">.</span>type<span class="token operator">==</span><span class="token string">'post'</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">var</span> contentType<span class="token operator">=</span>defaults<span class="token punctuation">.</span>header<span class="token punctuation">[</span><span class="token string">'Content-Type'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        xhr<span class="token punctuation">.</span><span class="token function">setRequestHeader</span><span class="token punctuation">(</span><span class="token string">'Content-Type'</span><span class="token punctuation">,</span>contentType<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// 判断用户希望的请求参数格式类型</span>
+        <span class="token comment">// 如果类型为json</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>contentType<span class="token operator">==</span><span class="token string">'application/json'</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token comment">// 传递json类型的参数</span>
+            xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>defaults<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+            <span class="token comment">// 传递普通类型的参数</span>
+            xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>params<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token keyword">else</span><span class="token punctuation">&#123;</span>
+        xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+    xhr<span class="token punctuation">.</span><span class="token function-variable function">onload</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=></span><span class="token punctuation">&#123;</span>
+        <span class="token comment">// xhr.getResponseHeader();</span>
+        <span class="token comment">// 获取响应头数据</span>
+        <span class="token keyword">var</span> contentType<span class="token operator">=</span>xhr<span class="token punctuation">.</span><span class="token function">getResponseHeader</span><span class="token punctuation">(</span><span class="token string">'Content-Type'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> responseText<span class="token operator">=</span>xhr<span class="token punctuation">.</span>responseText<span class="token punctuation">;</span>
+        <span class="token comment">// 如果响应中包含application/json</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>contentType<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'application/json'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token comment">// json字符串转化为json对象</span>
+            responseText<span class="token operator">=</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>responseText<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+        <span class="token comment">// 当http状态码等于200时</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>status<span class="token operator">==</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+            <span class="token comment">// 请求成功</span>
+            defaults<span class="token punctuation">.</span><span class="token function">success</span><span class="token punctuation">(</span>responseText<span class="token punctuation">,</span>xhr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span><span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
+            <span class="token comment">// 请求失败</span>
+            defaults<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>responseText<span class="token punctuation">,</span>xhr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20210805-vue-xue-xi-zhi-ren-shi-deep/">
+          <h3 class="post-title">
+            下一篇：Vue学习之认识/deep/
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

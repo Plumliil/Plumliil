@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>如何进行网站优化</title>
+<meta name="keywords" content="seo,SEO,网站优化,性能优化">
+<meta name="description" content="在此之前先谈谈为什么要对网站进行优化我认为有两个主要的方面
+**一:**为了提高用户的浏览体验,我想没有一个用户在访问网站时等个几秒钟后,网站页面还为加载出来,此时对网站的优化是优化性能,优化交互,使用户喜欢上这个网站,使网站变得更加的友好">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">如何进行网站优化</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-03-29</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/%E7%BD%91%E7%AB%99%E4%BC%98%E5%8C%96/">
+              网站优化
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h4 id="在此之前先谈谈为什么要对网站进行优化"><a href="#在此之前先谈谈为什么要对网站进行优化" class="headerlink" title="在此之前先谈谈为什么要对网站进行优化"></a>在此之前先谈谈为什么要对网站进行优化</h4><p>我认为有两个主要的方面</p>
+<p>**一:**为了提高用户的浏览体验,我想没有一个用户在访问网站时等个几秒钟后,网站页面还为加载出来,此时对网站的优化是优化性能,优化交互,使用户喜欢上这个网站,使网站变得更加的友好.</p>
+<p><strong>二:<strong>为了提升网站的排名,做一个网站最大的目的是为了展示信息,那么如何更好的展示信息呢,这里就需要对网站进行</strong>搜索引擎优化(SEO)</strong>,通过优化提升浏览器在搜索引擎中的排名,使自己的网站优先展示.</p>
+<h4 id="接下来说一下怎么对网站进行性能优化"><a href="#接下来说一下怎么对网站进行性能优化" class="headerlink" title="接下来说一下怎么对网站进行性能优化"></a>接下来说一下怎么对网站进行性能优化</h4><p>进行性能优化无非是为了提高浏览器的加载速度和渲染速度.</p>
+<p>性能优化主要包括两个方面:</p>
+<span id="more"></span>
+
+<ol>
+<li>网络请求优化<ul>
+<li>减少HTTP请求:在加载时可以先确定加载的顺序,这个是非常重要的,通过加载顺序可以判断出哪些请求是可以优先加载,哪些请求可以在页面渲染后加载,以此来提升用户体验,减少HTTP加载时间</li>
+<li>减小cookie的体积:cookie内有关的信息是放在HTTP请求头中在服务器和浏览器之间交流,保存的cookie越大,请求完成的时间越长,所以通过减小cookie的体积可以来减小用户的响应时间也显得很必要.</li>
+<li>使用CDN和DNS:CDN为内容分发网络,主要解决的是如何将数据快速可靠的发给用户,通过CDN的分发,用户可以从较优的服务器获取资源而无需从源站获取,从而达到快速访问,DNS为域名系统,是互联网的一项服务,减少用户的等待时间，提升用户体验(具体有关CDN和DNS的优化可以浏览<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43624878/article/details/99322436">前端项目性能分析之聊聊DNS和CDN缓存</a>)</li>
+</ul>
+</li>
+<li>静态资源加载优化<ul>
+<li>将样式放在顶部,JS放在页面底部:用户在进入一个网页是首先看到是内容,浏览器在渲染时会将所有css下载完之后才对页面进行渲染,将样式放在头部可以加快浏览器渲染速度,而将脚本放在底部是为了优先渲染内容,其次再渲染交互</li>
+<li>少使用css表达式,虽然css表达式带来了很多方便,但是同时当css表达式计算次数会对性能有所损耗</li>
+<li>在html引入css时使用link不使用@import:link是html方式,@import是css方式,link最大限度支持并行下载,@import过多嵌套会导致串行下载,出现文档样式短暂失效,影响用户的体验</li>
+<li>图片的优化:图片的加载也会影响浏览器的渲染,我们可以使用精灵图来一次性加载多张图片通过减少http请求来提高渲染速度,当图片较小时可以使用base64格式来加载图片,而当图片较大时可以对图片进行压缩,也可以根据可视区的判断选择对图片进行懒加载</li>
+<li>对代码进行打包,减少代码体积</li>
+</ul>
+</li>
+</ol>
+<h4 id="最后来说一下搜索引擎优化"><a href="#最后来说一下搜索引擎优化" class="headerlink" title="最后来说一下搜索引擎优化"></a>最后来说一下搜索引擎优化</h4><p>做搜索引擎优化的目的主要是为了提高网站权重,增加流量,改善体验</p>
+<ol>
+<li>合理的title,description,keywords:通过对标题描述关键词的设置可以更好地让蜘蛛更好的抓取.</li>
+<li>语义化:代码要符合w3c规范,可以使搜索引擎更加容易的理解网页</li>
+<li>扁平化目录结构:网站的结构层次越少越容易被蜘蛛抓去,从而被收录,可以通过优化目录结构来进行搜索引擎优化</li>
+<li>少用iframe:搜索引擎不会抓取iframe里的内容</li>
+<li>…</li>
+</ol>
+<p>对网站优化的记录先到这里,日后随着知识的增长会不断补充…</p>
+<p>参考链接:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Strugglinggirl/p/11011473.html">https://www.cnblogs.com/Strugglinggirl/p/11011473.html</a></p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20220328-express-kua-yu/">
+          <h3 class="post-title">
+            下一篇：express跨域
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

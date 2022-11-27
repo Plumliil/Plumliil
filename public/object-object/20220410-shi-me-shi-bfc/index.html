@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>什么是BFC</title>
+<meta name="keywords" content="html,css,bfc,BFC,清除浮动,块级格式化上下文">
+<meta name="description" content="BFC(块级格式化上下文)什么是BFC指的是一个块级渲染作用域,该区域内拥有一套完整的规则来约束块级盒子的布局,且与区域外部无关.
+为什么要使用BFC当一个盒子不设置高度,当其中的子元素都浮动时,这个盒子便无法撑起自身.
+
+这个问题可以使用">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">什么是BFC</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-04-10</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/HTML-CSS/">
+              HTML &amp; CSS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h2 id="BFC-块级格式化上下文"><a href="#BFC-块级格式化上下文" class="headerlink" title="BFC(块级格式化上下文)"></a><code>BFC</code>(块级格式化上下文)</h2><h4 id="什么是BFC"><a href="#什么是BFC" class="headerlink" title="什么是BFC"></a>什么是<code>BFC</code></h4><p>指的是一个块级渲染作用域,该区域内拥有一套完整的规则来约束块级盒子的布局,且与区域外部无关.</p>
+<h4 id="为什么要使用BFC"><a href="#为什么要使用BFC" class="headerlink" title="为什么要使用BFC"></a>为什么要使用<code>BFC</code></h4><p>当一个盒子不设置高度,当其中的子元素都浮动时,这个盒子便无法撑起自身.</p>
+<p><img src="https://s2.loli.net/2022/04/10/VB3xt8R4fheSGKg.png" alt="1649573049146.png"></p>
+<p>这个问题可以使用<code>BFC</code>来解决,形成一个块级格式化上下文.</p>
+<h4 id="那么如何创建BFC"><a href="#那么如何创建BFC" class="headerlink" title="那么如何创建BFC"></a>那么如何创建<code>BFC</code></h4><ul>
+<li><code>float</code>的值不为<code>none</code></li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1b86ee8550af6178fa56345c70ffa9cb.png" alt="1649573470436.png"></p>
+<ul>
+<li><code>position</code>的值不为<code>static</code>或<code>relative</code></li>
+</ul>
+<p><img src="https://s2.loli.net/2022/04/10/nYNCFSL9a7pd5vb.png"></p>
+<ul>
+<li><p><code>display</code>的值为<code>inline-block</code>,<code>flex</code>,<code>inline-flex</code></p>
+<p><img src="https://s2.loli.net/2022/04/10/XBwM2Tf7yuvcNP4.png"></p>
+</li>
+<li><p>设置<code>overflow:hidden</code></p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/04/10/xfipgHNPVldOv64.png"></p>
+<h4 id="BFC的其他作用"><a href="#BFC的其他作用" class="headerlink" title="BFC的其他作用"></a>BFC的其他作用</h4><ul>
+<li><p>取消盒子的<code>margin</code>塌陷</p>
+<p>如图所示,父元素盒子不做设置,当子盒子设置margin-top后,父元素盒子也会随之变化.</p>
+<p><img src="https://s2.loli.net/2022/04/10/cGspifHSk8uZ6nC.png"></p>
+<p>此时给父元素设置<code>overflow:hidden</code>创建块级格式化上下文可以有效解决margin塌陷问题</p>
+<p><img src="https://s2.loli.net/2022/04/10/ryShZXeu7b3c6YU.png"></p>
+</li>
+<li><p>清除浮动</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/04/10/EQBRmCe7KOrYdTA.png"></p>
+<p>如图所示,当父盒子中有元素浮动,有元素不浮动时,不浮动的元素会出现在浮动元素下方此时给浮动元素设置<code>overflow:hidden</code>可以清除浮动,显示出不浮动元素.</p>
+<p><strong>当然清除浮动还有其他几种方法,这些后续再谈</strong></p>
+
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#BFC-%E5%9D%97%E7%BA%A7%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%87"><span class="top-box-text">BFC(块级格式化上下文)</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20220408-this-de-bang-ding/">
+          <h3 class="post-title">
+            下一篇：this的绑定
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

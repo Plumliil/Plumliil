@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>Git学习Ⅰ</title>
+<meta name="keywords" content="git,github,gitee,学习,笔记">
+<meta name="description" content="Git学习Ⅰ1.配置作者信息$ mkdir git  创建文件夹
+
+$ ll 显示 目录列表
+
+$ pwd 看当前在那个文件夹 
+
+$ cd 会文件夹目录
+
+ 
+
+$ cd ..后退
+
+$ ls -a 看见隐藏文件
+
+$ git confi">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">Git学习Ⅰ</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-07-21</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/Git/">
+              Git
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h1 id="Git学习Ⅰ"><a href="#Git学习Ⅰ" class="headerlink" title="Git学习Ⅰ"></a>Git学习Ⅰ</h1><h4 id="1-配置作者信息"><a href="#1-配置作者信息" class="headerlink" title="1.配置作者信息"></a>1.配置作者信息</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ mkdir git  创建文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ ll 显示 目录列表<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ pwd 看当前在那个文件夹 <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ cd 会文件夹目录<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+ <span id="more"></span>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ cd ..后退<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ ls -a 看见隐藏文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git config --global user.email &quot;xxx@xxx.com&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git config --global user.name &quot;xxx&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ rm -rm 删除文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git clone https:&#x2F;&#x2F;github.com&#x2F;xxx&#x2F;xxx.git 克隆存在的项目<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="2-流水线操作"><a href="#2-流水线操作" class="headerlink" title="2.流水线操作"></a>2.流水线操作</h4><p><img src="C:\Users\22584\AppData\Roaming\Typora\typora-user-images\image-20210716202644090.png" alt="image-20210716202644090"></p>
+<h4 id="3-使用命令完成流水操作"><a href="#3-使用命令完成流水操作" class="headerlink" title="3.使用命令完成流水操作"></a>3.使用命令完成流水操作</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ touch xxx.txt 创建文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git add xxx.txt 将文件放入小推车（暂存）<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git status 查看库的文件状态<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git add .传入所有文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git commit -m &#39;xxx&#39; 向git库传入文件并说明<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-gitignore详解控制版本库文件管理"><a href="#4-gitignore详解控制版本库文件管理" class="headerlink" title="4.gitignore详解控制版本库文件管理"></a>4.gitignore详解控制版本库文件管理</h4><p>在gitignore中控制上传文件（.gitignore中是忽略文件）</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git .gitignore<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><img src="C:\Users\22584\AppData\Roaming\Typora\typora-user-images\image-20210716210833953.png" alt="image-20210716210833953"></p>
+<h4 id="5-从版本库中删除资源"><a href="#5-从版本库中删除资源" class="headerlink" title="5.从版本库中删除资源"></a>5.从版本库中删除资源</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git rm file 删除库中及本第文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git rm --cached file 仅仅删除本地文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="6-版本库中修改资料名称"><a href="#6-版本库中修改资料名称" class="headerlink" title="6.版本库中修改资料名称"></a>6.版本库中修改资料名称</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git mv xxx.txt changeName.txt 修改名字<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git commit -m &#39;add file&#39; 上传暂存区的文件<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git mv indexController.txt IndexController.txt 已存在文件的名字修改<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在文件夹中修改名称也需要重新提交</p>
+<p><img src="C:\Users\22584\AppData\Roaming\Typora\typora-user-images\image-20210716213618526.png" alt="image-20210716213618526"></p>
+<h4 id="07-使用log日志查看历史记录"><a href="#07-使用log日志查看历史记录" class="headerlink" title="07.使用log日志查看历史记录"></a>07.使用log日志查看历史记录</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git log -p 显示文件变动<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git log --name-only 只显示名字<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git log -p -1  显示行数<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+
+<h4 id="08-使用amend修改最新一次提交事件"><a href="#08-使用amend修改最新一次提交事件" class="headerlink" title="08.使用amend修改最新一次提交事件"></a>08.使用amend修改最新一次提交事件</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git commit --amend<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>进入vim界面修改日志信息</p>
+<p>i：insert 插入信息</p>
+<p>esc：退出插入</p>
+<p>:wq：保存编辑并推出Vim</p>
+<h4 id="9-管理暂存区中的文件"><a href="#9-管理暂存区中的文件" class="headerlink" title="9.管理暂存区中的文件"></a>9.管理暂存区中的文件</h4><pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git rm --cached xxx.txt  文件没有提交 从暂存区撤回<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git reset xxx.txt  文件已经提交 从暂存区撤销<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ git checkout -- xxx.txt 返回上一次修改内容 回到最初状态<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">$ cat xxx.txt  查看文件内容<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+
+        </div>
+        <div class="top-div">
+          <ol class="top-box"><li class="top-box-item top-box-level-1"><a class="top-box-link" href="#Git%E5%AD%A6%E4%B9%A0%E2%85%A0"><span class="top-box-text">Git学习Ⅰ</span></a></li></ol>
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20210719-html5-zhong-de-session-storage-he-local-storage/">
+          <h3 class="post-title">
+            下一篇：html5中的sessionstorage和localstorage
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

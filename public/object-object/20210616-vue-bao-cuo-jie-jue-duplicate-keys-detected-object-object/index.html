@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>vue报错解决Duplicate keys detected:[object Object]</title>
+<meta name="keywords" content="Duplicate keys detected,vue,vue报错,vue报错解决">
+<meta name="description" content="​    最近在做vue项目时遇到了报错
+​        Duplicate keys detected: ‘[object Object]’. This may cause an update error.
+​    由于这个问题是第一">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">vue报错解决Duplicate keys detected:[object Object]</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-08-16</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/vue/">
+              vue
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>​    最近在做vue项目时遇到了报错</p>
+<p>​        <em>Duplicate keys detected: ‘[object Object]’. This may cause an update error.</em></p>
+<p>​    由于这个问题是第一次遇见，所以在解决起来废了点时间</p>
+<p>​    ![1](E:\Blog_Github\Plumliil\source_posts\vue报错解决Duplicate keys detected[object Object]\1.png)</p>
+<span id="more"></span>
+
+<p>解决：在遍历数组时   :key书写错误，</p>
+<p>​    我的错误写法</p>
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;ul&gt;
+     &lt;li v-for&#x3D;&quot;v in caseintrocon&quot; :key&#x3D;&quot;i&quot;&gt;
+         &lt;p&gt;&lt;em&gt;&#123;&#123;v.data_m_d&#125;&#125;&lt;&#x2F;em&gt;&#123;&#123;v.data_y&#125;&#125;&lt;&#x2F;p&gt;
+         &lt;p&gt;&lt;strong&gt;&#123;&#123;v.title&#125;&#125;&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+         &lt;p&gt;&#123;&#123;v.text_con&#125;&#125;&lt;&#x2F;p&gt;
+     &lt;&#x2F;li&gt;
+   &lt;&#x2F;ul&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>改正后的写法：</p>
+<p>​    </p>
+<pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;ul&gt;
+        &lt;li v-for&#x3D;&quot;(v,i) in caseintrocon&quot; :key&#x3D;&quot;i&quot;&gt;
+            &lt;p&gt;&lt;em&gt;&#123;&#123;v.data_m_d&#125;&#125;&lt;&#x2F;em&gt;&#123;&#123;v.data_y&#125;&#125;&lt;&#x2F;p&gt;
+            &lt;p&gt;&lt;strong&gt;&#123;&#123;v.title&#125;&#125;&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+            &lt;p&gt;&#123;&#123;v.text_con&#125;&#125;&lt;&#x2F;p&gt;
+        &lt;&#x2F;li&gt;
+      &lt;&#x2F;ul&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>总结：平时用修改前的方式写代码也没有出错，这次代码出错给了我个提醒，以后书写代码要更加规范</p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20210815-vue-dong-tai-bang-ding-lei-ming/">
+          <h3 class="post-title">
+            下一篇：vue动态绑定类名
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

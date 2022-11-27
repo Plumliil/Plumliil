@@ -1,65 +1,404 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Plumli"><title>李子味李子</title><meta name="description" content="一定要爱着点什么，恰似草木对光阴的钟情&lt;br&gt; Nothing is impossible"><meta name="keywords" content="学习笔记,心得分享,踩坑记录"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon"><script src="/js/jquery.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">李子味李子</a></h3><div class="description"><p>一定要爱着点什么，恰似草木对光阴的钟情<br> Nothing is impossible</p></div></div></div><ul class="social-links"><li><a target="_blank" rel="noopener" href="https://github.com/plumliil"><i class="fa fa-github"></i></a></li></ul><div class="footer"><div class="p"> <span>© 2021 - 2022 </span><i class="fa fa-star"></i><span> Plumli</span></div><div class="by_farbox"><span>Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span> & </span><a href="https://github.com/mrcore/hexo-theme-Anatole-Core" target="_blank">Anatole-Core  </a></div><div class="beian"><a href="http://www.beian.miit.gov.cn/" target="_blank">plumliil@foxmail.com</a><span style="height:10px;margin-left: 10px;">|</span><img src="/images/gongan.png" style="height:10px;margin-left: 10px;position: relative;top: 1px;"><span style="margin-left: 2px;">豫ICP备2021031361号-1</span></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a class="current" href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/tags">标签</a></li><li><a href="/about">关于</a></li><li><a href="/guestbook">留言</a></li></div><div class="information"><div class="back_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)" style="display:none;"> </a></li></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/%5Bobject%20Object%5D/Vue%E4%B8%ADv-on%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BB%93/">Vue中v-on事件总结</a></h3></div><div class="post-content"><p>资源事件
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>Plumliil</title>
+<meta name="keywords" content="Plumliil, 前端,javascript,css,html">
+<meta name="description" content="学习笔记,心得分享,踩坑记录">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
 
 
-事件名称
-何时触发
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
 
 
 
-error
-资源加载失败时。
+
+<link rel="stylesheet" href="/style/prism.css" />
 
 
-abort
-正在加载资源已经被中止时。
 
 
-load
-资源及其相关资源已完成加载。
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
 
 
-beforeunload
-window，document 及其资源即将被卸载。
+
+  <div class="content-container">
+
+    
+
+<section class="post-item">
+    <div class="content">
+      <a href="/object-object/20220328-express-kua-yu/">
+        <h2 class="post-title">express跨域</h2>
+      </a>
+      <a href="/object-object/20220328-express-kua-yu/">
+          <div class="post-abstract">
+            
+			    express搭建服务器跨域问题解决方案:设置请求头为&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;
+具体代码
+app.all(&#39;*&#39;, function(req
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-03-28</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%90%8E%E7%AB%AF%E7%AF%87/">
+                后端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Express/">
+                Express
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
 
 
-unload
-文档或一个依赖资源正在被卸载。
+
+<section class="post-item">
+    <div class="content">
+      <a href="/object-object/20220309-di-gui-xue-xi/">
+        <h2 class="post-title">递归学习</h2>
+      </a>
+      <a href="/object-object/20220309-di-gui-xue-xi/">
+          <div class="post-abstract">
+            
+			    今天leetcode上整了两道链表题都用到了递归思想
+1.[*21. 合并两个有序链表*](21. 合并两个有序链表 - 力扣（LeetCode） (leetcode-cn.com))将两个升序链表合并为一个新的 升序 链表并返回。新链表是
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-03-09</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">
+                数据结构与算法
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Leetcode/">
+                Leetcode
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
 
 
-网络事件
+
+<section class="post-item">
+    <div class="content">
+      <a href="/object-object/20220106-shou-xie-call-apply-bind/">
+        <h2 class="post-title">手写call&amp;apply&amp;bind</h2>
+      </a>
+      <a href="/object-object/20220106-shou-xie-call-apply-bind/">
+          <div class="post-abstract">
+            
+			    主要思想：给对象一个临时函数来调用,调用完毕后删除该临时函数对应的属性call函数封装
+function pliCall(fn, obj, ...args) &#123;
+    if (obj === undefined || obj =
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-01-06</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+                前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/JavaScript/">
+                JavaScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
 
 
-事件...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2021-08-02</span><i class="fa fa-tag"></i><a class="tag" href="/tags/前端篇/" title="前端篇">前端篇 </a><a class="tag" href="/tags/Vue/" title="Vue">Vue </a><a class="tag" href="/tags/优秀博文转载/" title="优秀博文转载">优秀博文转载 </a><span class="leancloud_visitors"></span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/%5Bobject%20Object%5D/Vue%E4%B8%A4%E7%BB%84%E9%97%B4%E9%80%9A%E8%BF%87%E4%BC%A0%E5%80%BC%E8%AE%BE%E7%BD%AE%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%BB%84%E4%BB%B6%E8%83%8C%E6%99%AF/">Vue两组间通过传值设置另一个组件背景</a></h3></div><div class="post-content"><p>vue项目中，从一个组件获取图片url，并为另一个组件设置该图片为背景的盒子子组件123456789101112&lt;template&gt;  &lt;div        class=&quot;intd_content_banner&quot;        :style=&quot;&#123;back...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2021-07-31</span><i class="fa fa-tag"></i><a class="tag" href="/tags/前端篇/" title="前端篇">前端篇 </a><a class="tag" href="/tags/Vue/" title="Vue">Vue </a><span class="leancloud_visitors"></span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/%5Bobject%20Object%5D/JsQuestions-1/">JsQuestions-1</a></h3></div><div class="post-content"><p>123456// 输出什么？const myFunc = (&#123; x, y, z &#125;) =&gt; &#123; console.log(x, y, z);&#125;;myFunc(1, 2, 3);
+
+<section class="post-item">
+    <div class="content">
+      <a href="/object-object/20211123-call-apply-bind-de-jian-dan-yong-fa/">
+        <h2 class="post-title">call，apply，bind的简单用法</h2>
+      </a>
+      <a href="/object-object/20211123-call-apply-bind-de-jian-dan-yong-fa/">
+          <div class="post-abstract">
+            
+			    简单了解一下call，apply以及bind的用法首先说一下三者的共同之处call、apply、bind作用是改变函数执行时的上下文，简单地说就是改变函数运行时的this指向，当我们函数中所需要的this指向不是当前的this时可以用这三种
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-11-23</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+                前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/JavaScript/">
+                JavaScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
 
 
-A: 1 2 3
 
-B: &#123;1: 1&#125; &#123;2: 2&#12...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2021-07-23</span><i class="fa fa-tag"></i><a class="tag" href="/tags/前端篇/" title="前端篇">前端篇 </a><a class="tag" href="/tags/JavaScript/" title="JavaScript">JavaScript </a><span class="leancloud_visitors"></span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/%5Bobject%20Object%5D/Git%E5%AD%A6%E4%B9%A0%E2%85%A1/">Git学习Ⅱ</a></h3></div><div class="post-content"><p>10.alias命令别名提高操作效率使用alias重新定西提交
-12345[alias]	a = add .	c = commit	l = log	s = status 
+<section class="post-item">
+    <div class="content">
+      <a href="/object-object/20211122-qian-kao-bei-yu-shen-kao-bei/">
+        <h2 class="post-title">浅拷贝与深拷贝</h2>
+      </a>
+      <a href="/object-object/20211122-qian-kao-bei-yu-shen-kao-bei/">
+          <div class="post-abstract">
+            
+			    在了解深浅拷贝前需要首先先谈谈拷贝的概念
+拷贝拷贝就是拷贝指向对象的指针，意思就是说：拷贝出来的目标对象的指针和源对象的指针指向的内存空间是同一块空间，
+浅拷贝浅拷贝是按位拷贝对象，它会创建一个新对象，这个对象有着原始对象属性值的一份精确拷
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-11-22</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+                前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/JavaScript/">
+                JavaScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
 
-11.git分支branch存在的意义Git分支是由指针管理起来的，所以创建、切换、合并、删除分支都非常快，非常适合大型项目的开发。
-在分支...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2021-07-22</span><i class="fa fa-tag"></i><a class="tag" href="/tags/Git/" title="Git">Git </a><span class="leancloud_visitors"></span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/%5Bobject%20Object%5D/Git%E5%AD%A6%E4%B9%A0%E2%85%A0/">Git学习Ⅰ</a></h3></div><div class="post-content"><p>Git学习Ⅰ1.配置作者信息1$ mkdir git  创建文件夹
 
-1$ ll 显示 目录列表
 
-1$ pwd 看当前在那个文件夹 
+<section class="post-item">
+    <div class="content">
+      <a href="/object-object/20211105-js-pan-duan-liu-lan-qi-jin-du-tiao-shi-fou-dao-di-bu/">
+        <h2 class="post-title">Js判断浏览器进度条是否到底部</h2>
+      </a>
+      <a href="/object-object/20211105-js-pan-duan-liu-lan-qi-jin-du-tiao-shi-fou-dao-di-bu/">
+          <div class="post-abstract">
+            
+			    判断浏览器滚动条是否到达浏览器底部在判断前是需要了解几个关键词
 
-1$ cd 会文件夹目录
+滚动条到顶部的距离 scrollTop
+当前窗口内容的可视区 windowHeight
+滚动条内容的总高度 scrollHeight
 
- 
+判断到底部的等式是：scrollTop
+            
+          </div>
+      </a>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2021-11-05</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+                前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/JavaScript/">
+                JavaScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+  </section>
 
-1$ cd ..后退
 
-1$ ls -a 看见隐藏文件
 
-1$ git config --global user.email &quot;xx...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2021-07-21</span><i class="fa fa-tag"></i><a class="tag" href="/tags/Git/" title="Git">Git </a><span class="leancloud_visitors"></span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/%5Bobject%20Object%5D/html5%E4%B8%AD%E7%9A%84session%20storage%E5%92%8Clocal%20storage/">html5中的session storage和local storage</a></h3></div><div class="post-content"><p>随着互联网的快速发展,基于网页的应用越来越普遍,同时也变的越来越复杂,为了满足各种各样的需求,会经常性在本地存储大量的数据, HTML5规范提出了相关解决方案。
-本地存储特性
-1、数据存储在用户浏览器中
-2、设置、读取方便、甚至页面刷新不失数据
-3、容量较大, 储存大小约为5MB
-4、只能存储字符串,可以将对象J...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2021-07-19</span><i class="fa fa-tag"></i><a class="tag" href="/tags/前端篇/" title="前端篇">前端篇 </a><a class="tag" href="/tags/JavaScript/" title="JavaScript">JavaScript </a><span class="leancloud_visitors"></span></div></div></div></div><div class="post animated fadeInDown"><div class="post-title"><h3><a href="/%5Bobject%20Object%5D/border-radius_2021-07-18/">border-radius</a></h3></div><div class="post-content"><p> border-radius - 指定每个圆角
-如果你在 border-radius 属性中只指定一个值，那么将生成 4 个 圆角。
-但是，如果你要在四个角上一一指定，可以使用以下规则：
 
-四个值: 第一个值为左上角，第二个值为右上角，第三个值为右下角，第四个值为左下角。
-三个值: 第一个值为左上角,     第...</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2021-07-18</span><i class="fa fa-tag"></i><a class="tag" href="/tags/前端篇/" title="前端篇">前端篇 </a><a class="tag" href="/tags/HTML-CSS/" title="HTML &amp; CSS">HTML &amp; CSS </a><span class="leancloud_visitors"></span></div></div></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a class="btn" role="navigation" href="/page/3/">上一页</a></li></ul></div></div></div></div><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script><script src="/js/baidu-tongji.js"></script></body></html>
+    <div class="pagination-container">
+      
+        <a href="/page/3/" class="prev"><i class="icon icon-arrow-ios-back-outline"></i> 上一页</a>
+      
+      
+        <a href="/page/5/" class="next">下一页 <i class="icon icon-arrow-ios-forward-outline"></i></a>
+      
+    </div>
+
+
+
+  </div>
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+
+
