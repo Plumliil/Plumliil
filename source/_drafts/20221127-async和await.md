@@ -11,6 +11,8 @@ keywords: 'async,await,'
 
 > https://dog.ceo/api/breeds/image/random
 
+
+> https://gorest.co.in/public/v1/users
 async,await是基于promise,async函数始终返回一个Promise对象
 
 
