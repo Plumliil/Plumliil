@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>tcp三次握手和四次挥手</title>
+<meta name="keywords" content="tcp,TCP">
+<meta name="description" content="如果将网络体系按照OSI模型划分可分为7层:
+
+1:物理层
+2:数据链路层
+3:网络层
+4:传输层
+5:会话层
+6:表示层
+7:应用层
+
+其中传输层起到呈上启下作用,建立端到端的连接,客户端和服务端都有各自IP地址,以B站为例,同一个IP地">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">tcp三次握手和四次挥手</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-11-28</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/TCP/">
+              TCP
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/%E9%9A%8F%E7%AC%94/">
+              随笔
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>如果将网络体系按照OSI模型划分可分为7层:</p>
+<ul>
+<li>1:物理层</li>
+<li>2:数据链路层</li>
+<li>3:网络层</li>
+<li>4:传输层</li>
+<li>5:会话层</li>
+<li>6:表示层</li>
+<li>7:应用层</li>
+</ul>
+<p>其中传输层起到呈上启下作用,建立端到端的连接,<br>客户端和服务端都有各自IP地址,以B站为例,同一个IP地址使用Firefox和Chrome向服务器发送请求,此时端口号可以保证服务器不会错发给不同的应用进程.</p>
+<p>套接字socket:IP地址:端口号</p>
+<p>三次握手:(SYN:同步,ACK:确认)<br>客户端(序号:9527)——SYN——&gt;服务端(序号:100)<br>服务端(确认号:9527+1)—-SYN+ACK—-&gt;客户端(序号:9527+1)<br>客户端(序号:9527+1,确认号:100+1)——ACK——&gt;服务端</p>
+<p>握手之后建立连接:(ACK:确认,FIN:结束)</p>
+<p>客户端(序号:🐕,确认号:💩)—-FIN+ACK—-&gt;服务端(序号:💩,确认号:🐕+1)<br>服务端(序号:💩,确认号:🐕+1)——ACK——&gt;客户端(序号:💩,确认号:🐕+1)<br>服务端(序号:💩,确认号:🐕+1)——FIN+ACK——&gt;客户端(序号:💩,确认号:🐕+1)<br>客户端(序号:🐕+1,确认号:💩+1)——ACK——&gt;</p>
+<p>客户端:我要关闭连接了<br>服务端:收到<br>服务端:那我也要关闭连接了<br>客户端:好的</p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20221127-async-he-await/">
+          <h3 class="post-title">
+            下一篇：async和await
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+

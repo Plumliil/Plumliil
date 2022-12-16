@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>函数柯里化</title>
+<meta name="keywords" content="函数柯里化,柯里化,">
+<meta name="description" content="在计算机科学中，柯里化（Currying）是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。这个技术由 Christopher Strachey 以逻辑学家 Hask">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">函数柯里化</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-12-06</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/JavaScript/">
+              JavaScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>在计算机科学中，柯里化（Currying）是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，并且返回接受余下的参数且返回结果的新函数的技术。这个技术由 Christopher Strachey 以逻辑学家 Haskell Curry 命名的，尽管它是 Moses Schnfinkel 和 Gottlob Frege 发明的。</p>
+<p>柯里化声称“如果你固定某些参数，你将得到接受余下参数的一个函数”</p>
+<p>函数柯里化可以让我们在不同的环境使用相同的调用方法</p>
+<h4 id="参数的复用"><a href="#参数的复用" class="headerlink" title="参数的复用"></a>参数的复用</h4><p>函数柯里化最简单的应用就是参数的复用,可以简化后续调用</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">uri</span><span class="token punctuation">(</span><span class="token parameter">protocol<span class="token punctuation">,</span> hostname<span class="token punctuation">,</span> pathname</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">hostname<span class="token punctuation">,</span> pathname</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>hostname<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>pathname<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token keyword">let</span> uri_https <span class="token operator">=</span> <span class="token function">uri</span><span class="token punctuation">(</span><span class="token string">"https://"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> uri2 <span class="token operator">=</span> <span class="token function">uri_https</span><span class="token punctuation">(</span><span class="token string">"plumliil.eu.org"</span><span class="token punctuation">,</span> <span class="token string">"/tags"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> uri3 <span class="token operator">=</span> <span class="token function">uri_https</span><span class="token punctuation">(</span><span class="token string">"plumliil.eu.org"</span><span class="token punctuation">,</span> <span class="token string">"/about"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>uri2<span class="token punctuation">,</span> uri3<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在上方代码中第一次使用 <code>uri</code> 函数来获得了一个新的函数 <code>uri_https</code>,此时通过闭包可以将 <code>protocol</code> 保存下来供后续函数使用,在接下来的代码中通过调用新函数<code>uri_https</code>来获得最终的返回结果,此过程实现了<code>https://</code>参数的复用</p>
+<h4 id="兼容性的检测"><a href="#兼容性的检测" class="headerlink" title="兼容性的检测"></a>兼容性的检测</h4><p>通过函数柯里化可以检查代码是否在ie浏览器或者主流浏览器中运行如<br>// 立即执行函数,只需触发一次if判断</p>
+<pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> watchEvent <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>window<span class="token punctuation">.</span>addEventListener<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">element<span class="token punctuation">,</span> type<span class="token punctuation">,</span> listener<span class="token punctuation">,</span> useCapture</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      element<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">listener</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> useCapture<span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>window<span class="token punctuation">.</span>attachEvent<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">element<span class="token punctuation">,</span> type<span class="token punctuation">,</span> handler</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+      element<span class="token punctuation">.</span><span class="token function">attachEvent</span><span class="token punctuation">(</span><span class="token string">'on'</span> <span class="token operator">+</span> type<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token function">handler</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>element<span class="token punctuation">,</span> e<span class="token punctuation">)</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="延迟执行"><a href="#延迟执行" class="headerlink" title="延迟执行"></a>延迟执行</h4><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+  <span class="token keyword">let</span> args <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>arguments<span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">let</span> <span class="token function-variable function">inner</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    args<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">...</span>arguments<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> inner
+  <span class="token punctuation">&#125;</span>
+  inner<span class="token punctuation">.</span><span class="token function-variable function">toString</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">return</span> args<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">pre<span class="token punctuation">,</span> cur<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
+      <span class="token keyword">return</span> pre <span class="token operator">+</span> cur
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+  <span class="token punctuation">&#125;</span>
+  <span class="token keyword">return</span> inner<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// </span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">typeof</span> res<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// function</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20221113-tcp-san-ci-wo-shou-he-si-ci-hui-shou/">
+          <h3 class="post-title">
+            下一篇：tcp三次握手和四次挥手
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+
