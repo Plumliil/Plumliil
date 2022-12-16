@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>localStorage数据过期时间的设置</title>
+<meta name="keywords" content="localstorage,localStorage过期时间,localstorage,sessionStorage">
+<meta name="description" content="使用ts简单封装localStorage函数,使之具有时效性
+class MyLocalStorage &#123;
+  private static time: number &#x3D; new Date().getTime();
+  ">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">localStorage数据过期时间的设置</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-11-01</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/JavaScript/">
+              JavaScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>使用ts简单封装localStorage函数,使之具有时效性</p>
+<pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">class MyLocalStorage &#123;
+  private static time: number &#x3D; new Date().getTime();
+  private constructor() &#123;&#125;
+  public static get(key: string) &#123;
+    let value &#x3D; localStorage.getItem(key);
+    if (!value) return null;
+    let valueArr &#x3D; value.split(&quot;|&quot;); &#x2F;&#x2F; 如果和储存字符冲突可以另换其它字符
+    if (valueArr.length &amp;&amp; valueArr.length &gt; 1) &#123;
+      if (this.time &gt; parseInt(valueArr[1])) &#123;
+        localStorage.removeItem(key);
+        console.log(this.time, parseInt(valueArr[1]));
+        return &quot;&quot;;
+      &#125; else &#123;
+        return JSON.parse(valueArr[0]);
+      &#125;
+    &#125; else &#123;
+      return JSON.parse(value);
+    &#125;
+  &#125;
+  public static set(key: string, value: any) &#123;
+    localStorage.setItem(key, JSON.stringify(value));
+  &#125;
+  public static cacheSet(
+    key: string,
+    value: any,
+    delay: number &#x3D; 1000 * 60 * 3600
+  ) &#123;
+    value &#x3D; JSON.stringify(value) + &quot;|&quot; + (this.time + delay);
+    localStorage.setItem(key, value);
+  &#125;
+  public static remove(key: string) &#123;
+    localStorage.removeItem(key);
+    return &quot;&quot;;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>思路很简单,存入数据时将时间也一并存入添加到数据中并用特殊符号分割,当取出时和缓存时间对比,判断是否需要去除或者移除.</p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20221026-vue2-he-vue3-de-xiang-ying-shi-qu-bie/">
+          <h3 class="post-title">
+            下一篇：vue2和vue3的响应式区别
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+
