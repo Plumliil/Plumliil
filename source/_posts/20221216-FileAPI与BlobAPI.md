@@ -13,10 +13,11 @@ keywords: "File,Blob"
 ### 简单介绍
 HTML5在DOM上为文件输入元素添加了Files集合,当用户在文件字段中选择一个或多个文件时,这个files及合作中会包含一组File对象,表示被选中的文件,File对象是一种特殊的Blob对象
 
+![](https://s2.loli.net/2022/12/20/yU9vCj7KWzAcgEP.png)
+
 ### 创建
 - input元素选择文件后返回的FileList对象
 - 文件拖放操作生成的DataTransfer对象,`event.dataTransfer.files`
-
 ## Blob
 
 ### 简单介绍
