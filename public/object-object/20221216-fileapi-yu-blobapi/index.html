@@ -16,8 +16,9 @@
 <title>FileAPI与BlobAPI</title>
 <meta name="keywords" content="File,Blob">
 <meta name="description" content="File简单介绍HTML5在DOM上为文件输入元素添加了Files集合,当用户在文件字段中选择一个或多个文件时,这个files及合作中会包含一组File对象,表示被选中的文件,File对象是一种特殊的Blob对象
+
 创建
-input元素选择文">
+input元素选择">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -121,11 +122,12 @@ input元素选择文">
       <div class="post-content-wrapper">
         <div class="post-content">
           <h2 id="File"><a href="#File" class="headerlink" title="File"></a>File</h2><h3 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>HTML5在DOM上为文件输入元素添加了Files集合,当用户在文件字段中选择一个或多个文件时,这个files及合作中会包含一组File对象,表示被选中的文件,File对象是一种特殊的Blob对象</p>
+<p><img src="https://s2.loli.net/2022/12/20/yU9vCj7KWzAcgEP.png"></p>
 <h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ul>
 <li>input元素选择文件后返回的FileList对象</li>
-<li>文件拖放操作生成的DataTransfer对象,<code>event.dataTransfer.files</code></li>
+<li>文件拖放操作生成的DataTransfer对象,<code>event.dataTransfer.files</code><h2 id="Blob"><a href="#Blob" class="headerlink" title="Blob"></a>Blob</h2></li>
 </ul>
-<h2 id="Blob"><a href="#Blob" class="headerlink" title="Blob"></a>Blob</h2><h3 id="简单介绍-1"><a href="#简单介绍-1" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>blob 表示二进制大对象(binary larget object),是 javascript 对不可修改二进制数据的封装类型.包含字符串数组,ArrayBuffers,ArrafBufferViews,甚至其他的 Blob 都可以来创建 blob.blob 对象不可修改,从 blob 中读取内容的唯一方法是使用 FileReader</p>
+<h3 id="简单介绍-1"><a href="#简单介绍-1" class="headerlink" title="简单介绍"></a>简单介绍</h3><p>blob 表示二进制大对象(binary larget object),是 javascript 对不可修改二进制数据的封装类型.包含字符串数组,ArrayBuffers,ArrafBufferViews,甚至其他的 Blob 都可以来创建 blob.blob 对象不可修改,从 blob 中读取内容的唯一方法是使用 FileReader</p>
 <h3 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h3><p><code>let blob=new Blob(array,options)</code></p>
 <ul>
 <li>返回一个新创建的 Blob 对象，其内容由参数中给定的数组拼接组成。</li>
