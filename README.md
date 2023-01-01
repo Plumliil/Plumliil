@@ -3,7 +3,7 @@ A progressive web lover , likes to fiddle and has a great interest in technologi
 #### 📝 Blog
  - [Plumliil](https://plumliil.eu.org)
 #### 📞 Social 
- - Email:plumliil@foxmail.com
+ - Email: plumliil@foxmail.com
  - twitter: [Plumliil](https://twitter.com/Plumliil)
 #### 🚀 Skills
 ![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
