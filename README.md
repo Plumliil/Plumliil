@@ -1,5 +1,5 @@
 # Hello, there! <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
-A progressive front-end person who likes to fiddle and has a great interest in technological exploration
+A progressive web lover , likes to fiddle and has a great interest in technological exploration.
 #### 📝 Blog
  - [Plumliil](https://plumliil.eu.org)
 #### 📞 Social 
