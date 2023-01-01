@@ -1,6 +1,23 @@
+# Hello, there! <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
+A progressive front-end person who likes to fiddle and has a great interest in technological exploration
+#### 📝 Blog
+ - [Plumliil](https://plumliil.eu.org)
+#### 📞 Social 
+ - Email:plumliil@foxmail.com
+ - twitter: [Plumliil](https://twitter.com/Plumliil)
+#### 🚀 Skills
+![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
+![](https://img.shields.io/badge/Less-CC6699?style=for-the-badge&logo=less&logoColor=white)
+![](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)
+![](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![](https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=markdown&logoColor=white)
+
 
 <div align="center">
-     <h2><a href="https://plumliil.eu.org/">blog:  https://plumliil.eu.org/  </a></h2>
      <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=plumliil&hide_title=true&hide_border=true&layout=compact" />
      <img height="137px" src="https://github-readme-stats.vercel.app/api?username=plumliil&show_icons=true&theme=default" />
 </div>
