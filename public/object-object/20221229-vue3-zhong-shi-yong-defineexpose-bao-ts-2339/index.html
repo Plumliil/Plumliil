@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    
+
+<script>
+    ! function () {
+        var e = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+            t = localStorage.getItem("use-color-scheme") || "auto";
+        ("dark" === t || e && "light" !== t) && document.documentElement.classList.toggle("dark", !0)
+    }()
+</script>
+
+<meta charset="utf-8">
+
+<title>vue3+ts使用defineExpose报TS:2339</title>
+<meta name="keywords" content="vue3+ts,defineExpose,TS:2339,ts报错">
+<meta name="description" content="开头先把错误贴上
+src&#x2F;hooks&#x2F;usePageSearch.ts:9:27
+TS2339: Property &#39;getPageData&#39; does not exist on type &#39;&#">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+
+<link rel="stylesheet" href="/style/jquery.fancybox.min.css">
+
+
+
+
+<link rel="stylesheet" href="/style/prism.css" />
+
+
+
+
+  <meta name="generator" content="Hexo 5.4.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://Plumliil.github.io">
+        <img class="avatar" src="/images/favicon.png" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://Plumliil.github.io">
+        <h1 class="site-title">Plumliil</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/categories" class="menu purple-link">
+        分类
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">vue3+ts使用defineExpose报TS:2339</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2022-12-29</span>
+        
+          <span>
+          <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E7%AF%87/">
+              前端篇
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/Vue/">
+              Vue
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/%E8%B8%A9%E5%9D%91/">
+              踩坑
+                
+                  ，
+                
+              </a>
+            
+              <a href="/tags/TypeScript/">
+              TypeScript
+                
+              </a>
+            
+          </span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p>开头先把错误贴上</p>
+<pre class="line-numbers language-shell" data-language="shell"><code class="language-shell">src&#x2F;hooks&#x2F;usePageSearch.ts:9:27
+TS2339: Property &#39;getPageData&#39; does not exist on type &#39;&#123; $:ComponentInternalInstance; $data: &#123;&#125;; $props: Partial&lt;&#123;&#125;&gt; &amp; Pick&lt;Readonly&lt;ExtractPropTypes&lt;&#123;&#125;&gt;&gt; &amp; VNodeProps &amp;AllowedComponentProps &amp; ComponentCustomProps, &quot;key&quot; | ... 10 more ... | &quot;style&quot;&gt;; ... 10 more ...; $watch(source: string | Function, cb:Function, options?: WatchOptions&lt;...&gt; | undefined): WatchStopHan...&#39;.
+  &gt;  9 |     pageContentRef.value?.getPageData(&#123;&#125;)
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>在这里解释一下错误,错误的原因是将导入的组件转换为类型后组件中没有对应的<code>getPageData</code>类型</p>
+<p>经过测试这个错误只在<code>vue-cli</code>中出现,在新版本的<code>vite</code>中没有出现</p>
+<p>解决办法是将<code>getPageData</code>的类型进行定义然后对导入的<code>pageContent</code>类型使用<code>extends</code>进行继承,具体代码如下</p>
+<pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">import &#123; ref &#125; from &#39;vue&#39;
+import PageContent from &#39;@&#x2F;components&#x2F;page-content&#39;
+interface INewPageContent extends InstanceType&lt;typeof PageContent&gt; &#123;
+  getPageData(): void
+&#125;
+
+const pageContentRef &#x3D; ref&lt;INewPageContent&gt;()
+pageContentRef.value?.getPageData()<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>组件中</p>
+<pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">setup</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>ts<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">const</span> getpageData<span class="token operator">=</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'get the data here'</span><span class="token punctuation">)</span>  
+<span class="token punctuation">&#125;</span>
+<span class="token function">defineExpose</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+  getPageData
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+<p>关于extends类型继承可以参考以下代码</p>
+<pre class="line-numbers language-ts" data-language="ts"><code class="language-ts">interface Animal &#123;
+   eat: boolean;
+ &#125;
+ interface Bird extends Animal &#123;
+   fly: boolean;
+ &#125;
+ interface Fish extends Animal &#123;
+   swim: boolean;
+ &#125;
+
+ let bird &#x3D; &lt;Bird&gt;&#123;&#125;;
+ bird.eat &#x3D; true;
+ bird.fly &#x3D; true;
+ &#x2F;&#x2F; bird.swim --&gt; error: Property &#39;swim&#39; does not exist on type &#39;Bird&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>至此问题解决 🎉</p>
+
+        </div>
+        <div class="top-div">
+          
+        </div>
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/object-object/20221227-vue3-ts-shi-yong-v-for-chu-xian-unknown-wen-ti/">
+          <h3 class="post-title">
+            下一篇：vue3+ts使用v-for出现unknown问题
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/Plumliil" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+        <a href="https://twitter.com/PlumLiil" target="_blank">
+          <i class="icon icon-twitter"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+      
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.fancybox.min.js"></script>
+
+
+
+    <script>window.is_post = true;</script>
+
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+    </div>
+  </body>
+</html>
+
