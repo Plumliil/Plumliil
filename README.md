@@ -1,9 +1,9 @@
 # Hello, there! <img src="https://raw.githubusercontent.com/MartinHeinz/MartinHeinz/master/wave.gif" width="30px">
 A progressive web lover , likes to fiddle and has a great interest in technological exploration.
-#### 📝 Blog
- - [Plumliil](https://plumliil.eu.org)
-#### 📞 Social 
- - Email: plumliil@foxmail.com
+#### 📝 About Me 
+- 技术心得  [Technical Experience](https://plumliil.eu.org)
+- 学习笔记  [Study Notes](https://liidocs.eu.org)
+- Email: plumliil@foxmail.com
 #### 🚀 Skills
 ![](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
